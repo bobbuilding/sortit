@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 import { motion } from "framer-motion";
-import { Terminal, LayoutGrid, ArrowLeftRight, Wallet, Lock, FileText, HelpCircle, Activity } from "lucide-react";
+import { Terminal, LayoutGrid, ArrowLeftRight, Wallet, Lock, FileText, HelpCircle, Activity, Plug, PieChart } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -9,8 +9,10 @@ const nav = [
   { icon: LayoutGrid,     label: "Nodes",     href: "/nodes" },
   { icon: ArrowLeftRight, label: "Flows",     href: "/flows" },
   { icon: Wallet,         label: "Assets",    href: "/assets" },
+  { icon: PieChart,       label: "Portfolio",  href: "/portfolio" },
   { icon: Lock,           label: "Vault",     href: "/vault" },
   { icon: FileText,       label: "Ledger",    href: "/ledger" },
+  { icon: Plug,           label: "Connect",   href: "/integrations" },
 ];
 
 export function SideNavBar() {

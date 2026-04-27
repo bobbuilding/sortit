@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Shield, Bell, Key, Monitor, Activity, Check } from "lucide-react";
+import { Shield, Bell, Key, Monitor, Activity, Check, Plug } from "lucide-react";
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("general");
