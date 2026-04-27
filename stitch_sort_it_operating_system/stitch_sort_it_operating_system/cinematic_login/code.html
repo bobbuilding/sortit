@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sort IT - Institutional Access</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&amp;family=JetBrains+Mono:wght@400&amp;family=Space+Mono:wght@400;700&amp;family=Syne:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#18221a",
+                        "on-surface-variant": "#b9cbb9",
+                        "outline-variant": "#3b4b3d",
+                        "primary-fixed-dim": "#00e47a",
+                        "on-background": "#dae6d8",
+                        "background": "#0c160e",
+                        "primary-fixed": "#60ff9a",
+                        "on-surface": "#dae6d8",
+                        "tertiary-container": "#ffdb7a",
+                        "on-secondary-fixed-variant": "#930012",
+                        "on-secondary": "#680009",
+                        "secondary": "#ffb3ad",
+                        "on-tertiary-fixed": "#241a00",
+                        "secondary-fixed": "#ffdad7",
+                        "on-primary-fixed-variant": "#005228",
+                        "on-error": "#690005",
+                        "on-tertiary": "#3d2e00",
+                        "surface": "#0c160e",
+                        "on-tertiary-fixed-variant": "#584400",
+                        "inverse-surface": "#dae6d8",
+                        "surface-tint": "#00e47a",
+                        "surface-container-low": "#141e16",
+                        "error": "#ffb4ab",
+                        "secondary-container": "#b60119",
+                        "surface-dim": "#0c160e",
+                        "on-secondary-fixed": "#410004",
+                        "primary-container": "#00ff89",
+                        "tertiary-fixed": "#ffe08e",
+                        "tertiary": "#fffaf8",
+                        "outline": "#849585",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#2d372e",
+                        "error-container": "#93000a",
+                        "on-primary": "#00391a",
+                        "surface-container-high": "#222c24",
+                        "inverse-on-surface": "#29332a",
+                        "on-secondary-container": "#ffc2bd",
+                        "tertiary-fixed-dim": "#e5c365",
+                        "on-primary-container": "#007139",
+                        "on-tertiary-container": "#795f03",
+                        "primary": "#f1ffef",
+                        "on-primary-fixed": "#00210c",
+                        "surface-bright": "#323c33",
+                        "inverse-primary": "#006d37",
+                        "surface-container-lowest": "#071009",
+                        "secondary-fixed-dim": "#ffb3ad",
+                        "surface-variant": "#2d372e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin": "24px",
+                        "xs": "4px",
+                        "xl": "40px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "gutter": "12px",
+                        "sm": "8px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "terminal": ["JetBrains Mono"],
+                        "data-lg": ["Space Mono"],
+                        "body-main": ["DM Sans"],
+                        "data-sm": ["Space Mono"],
+                        "body-strong": ["DM Sans"],
+                        "h2": ["Syne"],
+                        "h1": ["Syne"]
+                    },
+                    "fontSize": {
+                        "terminal": ["13px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "data-lg": ["20px", {"lineHeight": "1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-main": ["14px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "data-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "body-strong": ["14px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "500"}],
+                        "h2": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0A0A0A;
+        }
+    </style>
+</head>
+<body class="h-screen w-full flex overflow-hidden font-body-main text-on-surface">
+<!-- Canvas/Left Panel (60%) -->
+<main class="hidden lg:flex w-[60%] relative flex-col justify-between p-lg z-10 border-r border-[#1E1E1E]">
+<!-- Faint Animated Data Background Placeholder -->
+<div class="absolute inset-0 z-0 opacity-10 pointer-events-none overflow-hidden" data-alt="abstract dark background with faint green financial data streams and numbers scrolling vertically, cybernetic mood, low opacity" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAfSsHlhrZ3Cb4aGZD_FUyKl1Ln1BIM-Sm0Rvo_7o9EZK9HIHFY-dUATxUx56gnlMHThm4bZCAMWKejilpk22XL3IZTWf1mKjvXgYBZyBIVdMCOo74ITjrtYqJc6hpW7yl7E6jGaQoxXgNGX-mDMiqGuiALoE3OkLG6sOKVthCc84Ne8uOMmbwg2H5AowN_6MkXolm7UUCbjYmsywITydjKJjZ-HanhQm59lhfi0SYBDa4hoGva8rfT4U1vhhrQmjiTrGICRe7CWIE'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-[#0A0A0A] bg-opacity-[0.94]"></div>
+</div>
+<div class="z-10 relative">
+<h1 class="font-h1 text-h1 text-primary-container uppercase tracking-widest leading-none mb-4">SORT IT</h1>
+<p class="font-body-main text-body-main text-on-surface-variant max-w-md">Financial intelligence. Institutional grade.</p>
+</div>
+<div class="z-10 relative mt-auto mb-xl">
+<div class="flex items-center gap-xs mb-sm">
+<div class="w-2 h-2 rounded-full bg-primary-container"></div>
+<span class="font-data-sm text-data-sm text-primary-container uppercase">Live Feed</span>
+</div>
+<div class="font-data-lg text-data-lg text-primary-container">₹1,284.6 Cr</div>
+<div class="font-terminal text-terminal text-on-surface-variant mt-xs">monitored</div>
+</div>
+<div class="z-10 relative flex gap-md">
+<div class="flex items-center gap-xs border border-[#1E1E1E] bg-[#111111] px-sm py-xs">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">verified_user</span>
+<span class="font-terminal text-[10px] uppercase text-on-surface-variant tracking-wider">SOC2 Type II</span>
+</div>
+<div class="flex items-center gap-xs border border-[#1E1E1E] bg-[#111111] px-sm py-xs">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">lock</span>
+<span class="font-terminal text-[10px] uppercase text-on-surface-variant tracking-wider">End-to-End Encryption</span>
+</div>
+</div>
+</main>
+<!-- Right Panel / Auth (40%) -->
+<aside class="w-full lg:w-[40%] bg-[#111111] flex flex-col justify-center px-lg lg:px-xl relative z-20">
+<div class="w-full max-w-sm mx-auto">
+<div class="mb-xl">
+<h2 class="font-h2 text-h2 text-on-surface uppercase mb-sm">Institutional Access</h2>
+<p class="font-terminal text-terminal text-on-surface-variant">Authenticate to access terminal.</p>
+</div>
+<form class="space-y-md">
+<div>
+<label class="block font-terminal text-[10px] uppercase text-on-surface-variant mb-xs" for="email">Work Email</label>
+<input class="w-full bg-[#1A1A1A] border border-[#1E1E1E] text-on-surface font-body-main text-body-main px-sm py-sm focus:border-primary-container focus:ring-0 transition-colors rounded-none outline-none" id="email" placeholder="user@institution.com" required="" type="email"/>
+</div>
+<div>
+<div class="flex justify-between items-center mb-xs">
+<label class="block font-terminal text-[10px] uppercase text-on-surface-variant" for="password">Password</label>
+<a class="font-terminal text-[10px] uppercase text-primary-container hover:underline" href="#">Reset</a>
+</div>
+<input class="w-full bg-[#1A1A1A] border border-[#1E1E1E] text-on-surface font-body-main text-body-main px-sm py-sm focus:border-primary-container focus:ring-0 transition-colors rounded-none outline-none" id="password" placeholder="••••••••" required="" type="password"/>
+</div>
+<button class="w-full bg-[#1A1A1A] border border-primary-container text-primary-container font-data-sm text-data-sm uppercase py-sm px-md hover:bg-primary-container/10 transition-colors mt-md flex justify-center items-center gap-xs" type="button">
+                    CONTINUE
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</form>
+<div class="mt-xl text-center">
+<a class="inline-flex items-center gap-xs font-terminal text-terminal text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+                    SSO / SAML login
+                    <span class="material-symbols-outlined text-[14px]">arrow_right_alt</span>
+</a>
+</div>
+</div>
+<div class="absolute bottom-lg left-0 right-0 text-center px-lg">
+<p class="font-terminal text-[10px] text-on-surface-variant/50 uppercase tracking-wider">
+                Authorized personnel only. Activities are monitored.
+            </p>
+</div>
+</aside>
+</body></html>

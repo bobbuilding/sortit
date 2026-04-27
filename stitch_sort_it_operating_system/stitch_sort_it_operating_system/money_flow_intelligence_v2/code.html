@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Money Flow Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Syne:wght@400;700;800;900&amp;family=Space+Mono:wght@400;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#241a00",
+                        "on-secondary": "#680009",
+                        "surface-container-lowest": "#071009",
+                        "surface-tint": "#00e47a",
+                        "primary-fixed-dim": "#00e47a",
+                        "on-tertiary": "#3d2e00",
+                        "inverse-surface": "#dae6d8",
+                        "secondary-container": "#b60119",
+                        "surface-dim": "#0c160e",
+                        "surface-variant": "#2d372e",
+                        "on-background": "#dae6d8",
+                        "on-secondary-container": "#ffc2bd",
+                        "primary-container": "#00ff89",
+                        "on-primary-container": "#007139",
+                        "inverse-primary": "#006d37",
+                        "tertiary-fixed": "#ffe08e",
+                        "secondary": "#ffb3ad",
+                        "tertiary-container": "#ffdb7a",
+                        "tertiary-fixed-dim": "#e5c365",
+                        "on-tertiary-fixed-variant": "#584400",
+                        "surface": "#0c160e",
+                        "on-secondary-fixed-variant": "#930012",
+                        "on-primary-fixed": "#00210c",
+                        "secondary-fixed-dim": "#ffb3ad",
+                        "on-error": "#690005",
+                        "inverse-on-surface": "#29332a",
+                        "secondary-fixed": "#ffdad7",
+                        "on-surface": "#dae6d8",
+                        "surface-container-highest": "#2d372e",
+                        "surface-container-low": "#141e16",
+                        "on-surface-variant": "#b9cbb9",
+                        "on-error-container": "#ffdad6",
+                        "tertiary": "#fffaf8",
+                        "on-primary-fixed-variant": "#005228",
+                        "surface-bright": "#323c33",
+                        "surface-container": "#18221a",
+                        "on-tertiary-container": "#795f03",
+                        "error": "#ffb4ab",
+                        "outline": "#849585",
+                        "on-secondary-fixed": "#410004",
+                        "surface-container-high": "#222c24",
+                        "primary-fixed": "#60ff9a",
+                        "error-container": "#93000a",
+                        "outline-variant": "#3b4b3d",
+                        "on-primary": "#00391a",
+                        "primary": "#f1ffef",
+                        "background": "#0c160e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "md": "16px",
+                        "xl": "40px",
+                        "unit": "4px",
+                        "margin": "24px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "gutter": "12px"
+                    },
+                    "fontFamily": {
+                        "terminal": ["JetBrains Mono"],
+                        "h2": ["Syne"],
+                        "body-strong": ["DM Sans"],
+                        "body-main": ["DM Sans"],
+                        "h1": ["Syne"],
+                        "data-sm": ["Space Mono"],
+                        "data-lg": ["Space Mono"]
+                    },
+                    "fontSize": {
+                        "terminal": ["13px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "h2": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-strong": ["14px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "500"}],
+                        "body-main": ["14px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "data-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "data-lg": ["20px", {"lineHeight": "1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sankey-path { fill: none; stroke-linecap: round; }
+        .sankey-path-normal { stroke: rgba(245, 245, 245, 0.45); }
+        .sankey-path-high { stroke: rgba(245, 245, 245, 0.80); }
+        .sankey-path-anomaly { stroke: #FF4444; stroke-dasharray: 10, 5; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col overflow-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation (Shared Component) -->
+<header class="flex justify-between items-center px-6 w-full fixed top-0 z-50 h-[52px] border-b border-[#1E1E1E] bg-[#111111]">
+<div class="flex items-center gap-margin">
+<span class="font-['Syne'] font-black text-xl tracking-widest text-[#00FF89]">SORT IT</span>
+<nav class="hidden md:flex items-center gap-6 h-full">
+<a class="font-['Syne'] uppercase tracking-tighter font-bold text-sm text-gray-500 pb-4 hover:text-[#00FF89] hover:bg-[#1A1A1A] transition-colors pt-4 px-2" href="#">Portfolio</a>
+<a class="font-['Syne'] uppercase tracking-tighter font-bold text-sm text-gray-500 pb-4 hover:text-[#00FF89] hover:bg-[#1A1A1A] transition-colors pt-4 px-2" href="#">Ledger</a>
+<a class="font-['Syne'] uppercase tracking-tighter font-bold text-sm text-gray-500 pb-4 hover:text-[#00FF89] hover:bg-[#1A1A1A] transition-colors pt-4 px-2" href="#">Risk</a>
+<a class="font-['Syne'] uppercase tracking-tighter font-bold text-sm text-[#00FF89] border-b-2 border-[#00FF89] pb-4 hover:bg-[#1A1A1A] transition-colors pt-4 px-2" href="#">Compute</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="font-data-sm text-on-surface-variant border border-outline-variant px-sm py-xs rounded flex items-center gap-xs hover:border-primary-container hover:text-primary-container transition-colors">
+                COMMAND_K <span class="text-[10px] bg-surface-container px-1 rounded border border-outline-variant">⌘K</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors cursor-crosshair active:scale-95 duration-75">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors cursor-crosshair active:scale-95 duration-75">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="User Terminal Avatar" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="Close-up portrait of a male avatar with a neutral expression against a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4B8KMKviijUP8dbBGuQaeR8qJEPMksyy1ox90G6mCDdWCBovMW1S8rFxeQJoszKyC6Bd4pc90U4dY8ZM8L1K1g_eLTc6J1TDjw8eOsu0F3WcCpC38YSg4_sxRx-ZI16lJSU45ZsWUxTGiygt49uj9kHj38T-tRdVmM2Tc2jMWRcOJunW6DXEYgEJyRCgsPxMHgY7jDA6fJor23Qp1FpHdZeeAcCG2iyr8BXzZey5mYir4hsea1JmJwkZ73p6FiYd83tDK9EwXlqE"/>
+</div>
+</header>
+<!-- Side Navigation (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col items-center pt-[52px] z-40 w-16 border-r border-[#1E1E1E] bg-[#111111]">
+<div class="flex-1 w-full flex flex-col items-center py-md gap-4">
+<a class="w-full flex flex-col items-center py-sm text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-[#00FF89]">terminal</span>
+<span class="font-['Space_Mono'] text-[10px] uppercase mt-1 hidden group-hover:block absolute left-16 bg-[#1A1A1A] px-2 py-1 border border-[#3A3A3A] text-[#00FF89] z-50 whitespace-nowrap">Terminal</span>
+</a>
+<a class="w-full flex flex-col items-center py-sm text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-[#00FF89]">account_tree</span>
+<span class="font-['Space_Mono'] text-[10px] uppercase mt-1 hidden group-hover:block absolute left-16 bg-[#1A1A1A] px-2 py-1 border border-[#3A3A3A] text-[#00FF89] z-50 whitespace-nowrap">Nodes</span>
+</a>
+<a class="w-full flex flex-col items-center py-sm text-[#00FF89] border-l-2 border-[#00FF89] bg-[#1A1A1A] transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#00FF89]">swap_horiz</span>
+<span class="font-['Space_Mono'] text-[10px] uppercase mt-1 hidden group-hover:block absolute left-16 bg-[#1A1A1A] px-2 py-1 border border-[#3A3A3A] text-[#00FF89] z-50 whitespace-nowrap">Flows</span>
+</a>
+<a class="w-full flex flex-col items-center py-sm text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-[#00FF89]">payments</span>
+<span class="font-['Space_Mono'] text-[10px] uppercase mt-1 hidden group-hover:block absolute left-16 bg-[#1A1A1A] px-2 py-1 border border-[#3A3A3A] text-[#00FF89] z-50 whitespace-nowrap">Assets</span>
+</a>
+<a class="w-full flex flex-col items-center py-sm text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-[#00FF89]">lock</span>
+<span class="font-['Space_Mono'] text-[10px] uppercase mt-1 hidden group-hover:block absolute left-16 bg-[#1A1A1A] px-2 py-1 border border-[#3A3A3A] text-[#00FF89] z-50 whitespace-nowrap">Vault</span>
+</a>
+<a class="w-full flex flex-col items-center py-sm text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-[#00FF89]">description</span>
+<span class="font-['Space_Mono'] text-[10px] uppercase mt-1 hidden group-hover:block absolute left-16 bg-[#1A1A1A] px-2 py-1 border border-[#3A3A3A] text-[#00FF89] z-50 whitespace-nowrap">Log</span>
+</a>
+</div>
+<div class="w-full flex flex-col items-center pb-margin gap-4 border-t border-[#1E1E1E] pt-md">
+<a class="w-full flex flex-col items-center py-sm text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-[#00FF89]">help</span>
+</a>
+<a class="w-full flex flex-col items-center py-sm text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-[#00FF89]">sensors</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-16 pt-[52px] flex-1 flex flex-col relative w-[calc(100%-64px)] h-screen">
+<!-- Header Overlay -->
+<div class="absolute top-0 left-0 w-full p-lg z-20 pointer-events-none flex justify-between items-start">
+<div>
+<h1 class="font-h1 text-on-surface uppercase tracking-tighter opacity-90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">CAPITAL FLOW INTELLIGENCE</h1>
+<p class="font-terminal text-primary-container mt-sm uppercase tracking-wider bg-surface-container-low/50 backdrop-blur-sm inline-block px-2 py-1 border border-outline-variant">FY 2024-25 · ₹4.82 Cr total movement</p>
+</div>
+<div class="bg-surface-container-low border border-outline-variant p-sm rounded font-terminal text-on-surface-variant flex gap-md pointer-events-auto">
+<div class="flex items-center gap-xs">
+<div class="w-3 h-0.5 bg-[rgba(245,245,245,0.45)]"></div>
+<span>Normal</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-3 h-0.5 bg-[rgba(245,245,245,0.80)]"></div>
+<span>High Vol</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-3 h-0.5 bg-[#FF4444] border border-dashed border-[#FF4444]"></div>
+<span class="text-error">Anomaly</span>
+</div>
+</div>
+</div>
+<!-- Sankey Visualization Container (Simulated with SVG) -->
+<div class="flex-1 relative w-full h-full bg-surface-container-lowest overflow-hidden">
+<!-- Simplified aesthetic background grid -->
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPjxwYXRoIGQ9Ik0wIDQwaDQwVDB6Ii8+PC9nPjwvc3ZnPg==')] opacity-20"></div>
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 1200 800">
+<!-- Funding -> Revenue -->
+<path class="sankey-path sankey-path-high" d="M 50,400 C 250,400 250,300 450,300" stroke-width="80"></path>
+<path class="sankey-path sankey-path-normal" d="M 50,600 C 250,600 250,380 450,380" stroke-width="40"></path>
+<!-- Revenue -> Depts -->
+<path class="sankey-path sankey-path-high" d="M 450,300 C 650,300 650,200 850,200" stroke-width="60"></path>
+<path class="sankey-path sankey-path-normal" d="M 450,340 C 650,340 650,450 850,450" stroke-width="30"></path>
+<path class="sankey-path sankey-path-anomaly" d="M 450,380 C 650,380 650,650 850,650" stroke-width="15"></path>
+<!-- Depts -> Costs/Vendors -->
+<path class="sankey-path sankey-path-high" d="M 850,200 C 1000,200 1000,150 1150,150" stroke-width="40"></path>
+<path class="sankey-path sankey-path-normal" d="M 850,230 C 1000,230 1000,280 1150,280" stroke-width="20"></path>
+<path class="sankey-path sankey-path-normal" d="M 850,450 C 1000,450 1000,420 1150,420" stroke-width="25"></path>
+<path class="sankey-path sankey-path-anomaly" d="M 850,650 C 1000,650 1000,700 1150,700" stroke-width="15"></path>
+<!-- Nodes (Rectangles) & Labels -->
+<!-- Level 1: Funding -->
+<rect fill="#2A2A2A" height="80" width="4" x="46" y="360"></rect>
+<text class="font-['Space_Mono'] text-[11px] fill-on-surface" text-anchor="end" x="35" y="395">₹3.20 Cr</text>
+<text class="font-['DM_Mono'] text-[10px] fill-on-surface-variant uppercase" text-anchor="end" x="35" y="410">VC SERIES A</text>
+<rect fill="#2A2A2A" height="40" width="4" x="46" y="580"></rect>
+<text class="font-['Space_Mono'] text-[11px] fill-on-surface" text-anchor="end" x="35" y="595">₹1.62 Cr</text>
+<text class="font-['DM_Mono'] text-[10px] fill-on-surface-variant uppercase" text-anchor="end" x="35" y="610">BRIDGE LOAN</text>
+<!-- Level 2: Revenue/Pools -->
+<rect fill="#2A2A2A" height="135" width="4" x="446" y="260"></rect>
+<text class="font-['Space_Mono'] text-[11px] fill-on-surface" x="455" y="325">₹4.82 Cr</text>
+<text class="font-['DM_Mono'] text-[10px] fill-on-surface-variant uppercase" x="455" y="340">CONSOLIDATED POOL</text>
+<!-- Level 3: Depts -->
+<rect fill="#2A2A2A" height="60" width="4" x="846" y="170"></rect>
+<text class="font-['Space_Mono'] text-[11px] fill-on-surface" text-anchor="end" x="835" y="195">₹2.40 Cr</text>
+<text class="font-['DM_Mono'] text-[10px] fill-on-surface-variant uppercase" text-anchor="end" x="835" y="210">ENGINEERING</text>
+<rect fill="#2A2A2A" height="30" width="4" x="846" y="435"></rect>
+<text class="font-['Space_Mono'] text-[11px] fill-on-surface" text-anchor="end" x="835" y="445">₹1.20 Cr</text>
+<text class="font-['DM_Mono'] text-[10px] fill-on-surface-variant uppercase" text-anchor="end" x="835" y="460">MARKETING</text>
+<rect fill="#2A2A2A" height="15" width="4" x="846" y="642"></rect>
+<text class="font-['Space_Mono'] text-[11px] fill-error" text-anchor="end" x="835" y="645">₹0.60 Cr</text>
+<text class="font-['DM_Mono'] text-[10px] fill-error uppercase" text-anchor="end" x="835" y="660">UNALLOCATED (FLAG)</text>
+<!-- Level 4: Vendors/Costs -->
+<rect fill="#2A2A2A" height="40" width="4" x="1150" y="130"></rect>
+<text class="font-['Space_Mono'] text-[11px] fill-on-surface" x="1160" y="145">₹1.80 Cr</text>
+<text class="font-['DM_Mono'] text-[10px] fill-on-surface-variant uppercase" x="1160" y="160">AWS INFRA</text>
+<rect fill="#2A2A2A" height="20" width="4" x="1150" y="270"></rect>
+<text class="font-['Space_Mono'] text-[11px] fill-on-surface" x="1160" y="275">₹0.60 Cr</text>
+<text class="font-['DM_Mono'] text-[10px] fill-on-surface-variant uppercase" x="1160" y="290">SAAS TOOLS</text>
+<rect fill="#2A2A2A" height="25" width="4" x="1150" y="407"></rect>
+<text class="font-['Space_Mono'] text-[11px] fill-on-surface" x="1160" y="415">₹1.20 Cr</text>
+<text class="font-['DM_Mono'] text-[10px] fill-on-surface-variant uppercase" x="1160" y="430">PERFORMANCE ADS</text>
+<rect fill="#2A2A2A" height="15" width="4" x="1150" y="692"></rect>
+<text class="font-['Space_Mono'] text-[11px] fill-error" x="1160" y="695">₹0.60 Cr</text>
+<text class="font-['DM_Mono'] text-[10px] fill-error uppercase" x="1160" y="710">UNKNOWN ENTITY</text>
+</svg>
+</div>
+<!-- Bottom KPI Strip -->
+<div class="h-[64px] border-t border-[#1E1E1E] bg-[#0A0A0A] flex w-full">
+<div class="flex-1 border-r border-[#1E1E1E] flex flex-col justify-center px-lg">
+<span class="font-terminal text-[10px] text-on-surface-variant uppercase tracking-wider">Total Inflow</span>
+<span class="font-data-lg text-primary-container">₹4.82 Cr</span>
+</div>
+<div class="flex-1 border-r border-[#1E1E1E] flex flex-col justify-center px-lg">
+<span class="font-terminal text-[10px] text-on-surface-variant uppercase tracking-wider">Total Outflow</span>
+<span class="font-data-lg text-on-surface">₹3.60 Cr</span>
+</div>
+<div class="flex-1 border-r border-[#1E1E1E] flex flex-col justify-center px-lg bg-surface-container-low">
+<span class="font-terminal text-[10px] text-on-surface-variant uppercase tracking-wider">Burn Rate (Avg/Mo)</span>
+<span class="font-data-lg text-on-surface">₹0.30 Cr</span>
+</div>
+<div class="flex-1 border-r border-[#1E1E1E] flex flex-col justify-center px-lg">
+<span class="font-terminal text-[10px] text-on-surface-variant uppercase tracking-wider">Anomalous Flow</span>
+<span class="font-data-lg text-error">₹0.60 Cr <span class="text-sm material-symbols-outlined text-error align-middle">warning</span></span>
+</div>
+<div class="flex-1 flex flex-col justify-center px-lg bg-surface-container">
+<span class="font-terminal text-[10px] text-on-surface-variant uppercase tracking-wider">System Status</span>
+<span class="font-data-lg text-primary-container flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-primary-container"></div>
+                    INTELLIGENT
+                </span>
+</div>
+</div>
+</main>
+</body></html>

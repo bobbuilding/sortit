@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reports Center - Institutional Intel V1</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,400;1,500&amp;family=JetBrains+Mono:wght@400&amp;family=Space+Mono:wght@400;700&amp;family=Syne:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#ffb3ad",
+                        "secondary-fixed": "#ffdad7",
+                        "on-tertiary-fixed": "#241a00",
+                        "on-primary-fixed-variant": "#005228",
+                        "on-tertiary": "#3d2e00",
+                        "on-error": "#690005",
+                        "tertiary-container": "#ffdb7a",
+                        "on-secondary-fixed-variant": "#930012",
+                        "on-secondary": "#680009",
+                        "primary-fixed-dim": "#00e47a",
+                        "outline-variant": "#3b4b3d",
+                        "on-background": "#dae6d8",
+                        "background": "#0c160e",
+                        "primary-fixed": "#60ff9a",
+                        "on-surface": "#dae6d8",
+                        "surface-container": "#18221a",
+                        "on-surface-variant": "#b9cbb9",
+                        "surface-dim": "#0c160e",
+                        "secondary-container": "#b60119",
+                        "on-secondary-fixed": "#410004",
+                        "primary-container": "#00ff89",
+                        "error": "#ffb4ab",
+                        "inverse-surface": "#dae6d8",
+                        "surface-tint": "#00e47a",
+                        "surface-container-low": "#141e16",
+                        "surface": "#0c160e",
+                        "on-tertiary-fixed-variant": "#584400",
+                        "inverse-on-surface": "#29332a",
+                        "surface-container-highest": "#2d372e",
+                        "error-container": "#93000a",
+                        "on-primary": "#00391a",
+                        "surface-container-high": "#222c24",
+                        "tertiary-fixed": "#ffe08e",
+                        "tertiary": "#fffaf8",
+                        "outline": "#849585",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#071009",
+                        "inverse-primary": "#006d37",
+                        "surface-variant": "#2d372e",
+                        "secondary-fixed-dim": "#ffb3ad",
+                        "on-tertiary-container": "#795f03",
+                        "primary": "#f1ffef",
+                        "on-primary-fixed": "#00210c",
+                        "surface-bright": "#323c33",
+                        "tertiary-fixed-dim": "#e5c365",
+                        "on-primary-container": "#007139",
+                        "on-secondary-container": "#ffc2bd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "gutter": "12px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "margin": "24px",
+                        "md": "16px",
+                        "xl": "40px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "data-lg": ["Space Mono"],
+                        "body-main": ["DM Sans"],
+                        "terminal": ["JetBrains Mono"],
+                        "h1": ["Syne"],
+                        "h2": ["Syne"],
+                        "body-strong": ["DM Sans"],
+                        "data-sm": ["Space Mono"]
+                    },
+                    "fontSize": {
+                        "data-lg": ["20px", { "lineHeight": "1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-main": ["14px", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "terminal": ["13px", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "h1": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "h2": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-strong": ["14px", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "500" }],
+                        "data-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #00ff89;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #00ff89; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-main antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="docked full-width top-0 border-b border-neutral-800 dark:border-[#1E1E1E] bg-neutral-900 dark:bg-[#111111] flex justify-between items-center w-full px-4 h-12 z-50 fixed hidden md:flex">
+<div class="flex items-center gap-margin">
+<span class="text-lg font-bold tracking-widest text-emerald-400 dark:text-[#00FF89]">INSTITUTIONAL_INTEL_V1</span>
+<div class="flex items-center gap-gutter h-full">
+<a class="font-mono uppercase tracking-tighter text-xs text-neutral-500 dark:text-[#666666] hover:bg-neutral-800 dark:hover:bg-[#1A1A1A] hover:text-white transition-colors duration-100 ease-linear h-full flex items-center px-sm" href="#">Ledger</a>
+<a class="font-mono uppercase tracking-tighter text-xs text-neutral-500 dark:text-[#666666] hover:bg-neutral-800 dark:hover:bg-[#1A1A1A] hover:text-white transition-colors duration-100 ease-linear h-full flex items-center px-sm" href="#">Budgeting</a>
+<a class="font-mono uppercase tracking-tighter text-xs text-emerald-400 dark:text-[#00FF89] border-b-2 border-emerald-400 dark:border-[#00FF89] transition-colors duration-100 ease-linear h-full flex items-center px-sm" href="#">Reports</a>
+<a class="font-mono uppercase tracking-tighter text-xs text-neutral-500 dark:text-[#666666] hover:bg-neutral-800 dark:hover:bg-[#1A1A1A] hover:text-white transition-colors duration-100 ease-linear h-full flex items-center px-sm" href="#">Onboarding</a>
+</div>
+</div>
+<div class="flex items-center gap-gutter">
+<button class="text-neutral-500 dark:text-[#666666] hover:text-emerald-400 dark:text-[#00FF89] transition-colors duration-100">
+<span class="material-symbols-outlined text-lg">notifications</span>
+</button>
+<button class="text-neutral-500 dark:text-[#666666] hover:text-emerald-400 dark:text-[#00FF89] transition-colors duration-100">
+<span class="material-symbols-outlined text-lg">settings</span>
+</button>
+<button class="text-neutral-500 dark:text-[#666666] hover:text-emerald-400 dark:text-[#00FF89] transition-colors duration-100">
+<span class="material-symbols-outlined text-lg">terminal</span>
+</button>
+<img alt="Administrator Profile" class="w-8 h-8 rounded-DEFAULT border border-neutral-800" data-alt="close up professional headshot of a person in a dark suit against a grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2zvct6Utq90fDdB11fRxh7ACU97NY48I0nrS3NsyRvrnmKyRcBkZL2ARwJtsLw0WmWh6COGcqCJn4dzUEnwWXQuVUUWIYO3YKoqymRgW0dee1AbYelFkMbq-LuPUr01ywFFe-r7R0rv9v7K5GZKMEph5RU5BKHGDf7_o2WeT7TFPKWs9b1rbiDBIJTjM35vPiAPHzwMoHTxfQknutTtC1I_DHLdenHA2QIxoog9UK1yo4RXh_sY4mzB5MF9pT4Q-IceOT_e3M7LY"/>
+</div>
+</nav>
+<div class="flex h-screen pt-12">
+<!-- SideNavBar -->
+<aside class="docked h-screen border-r border-neutral-800 dark:border-[#1E1E1E] w-64 bg-neutral-900 dark:bg-[#111111] hidden md:flex flex-col h-full overflow-y-auto shrink-0 z-40 fixed">
+<div class="p-margin border-b border-neutral-800 dark:border-[#1E1E1E] flex items-center gap-md">
+<div class="w-10 h-10 bg-surface-container border border-outline-variant flex items-center justify-center rounded-DEFAULT">
+<span class="material-symbols-outlined text-primary-container">dns</span>
+</div>
+<div>
+<div class="font-black tracking-tighter text-neutral-200 text-sm">COMMAND_CENTER</div>
+<div class="font-data-sm text-data-sm text-on-surface-variant">AUTHENTICATED_SECURE</div>
+</div>
+</div>
+<nav class="flex-1 py-margin flex flex-col gap-xs">
+<a class="flex items-center gap-md px-margin py-md text-neutral-500 dark:text-[#666666] hover:bg-neutral-800 dark:hover:bg-[#1A1A1A] transition-all duration-75" href="#">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-mono text-[11px] uppercase">Ledger</span>
+</a>
+<a class="flex items-center gap-md px-margin py-md text-neutral-500 dark:text-[#666666] hover:bg-neutral-800 dark:hover:bg-[#1A1A1A] transition-all duration-75" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-mono text-[11px] uppercase">Budgeting</span>
+</a>
+<a class="flex items-center gap-md px-margin py-md bg-neutral-800 dark:bg-[#1A1A1A] text-emerald-400 dark:text-[#00FF89] border-l-2 border-emerald-400 dark:border-[#00FF89] transition-all duration-75" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-mono text-[11px] uppercase">Reports</span>
+</a>
+<a class="flex items-center gap-md px-margin py-md text-neutral-500 dark:text-[#666666] hover:bg-neutral-800 dark:hover:bg-[#1A1A1A] transition-all duration-75" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-mono text-[11px] uppercase">Onboarding</span>
+</a>
+</nav>
+<div class="p-margin border-t border-neutral-800 dark:border-[#1E1E1E]">
+<button class="w-full bg-surface-container border border-primary-container/30 text-primary-container font-data-sm text-data-sm py-sm rounded-DEFAULT hover:bg-primary-container/10 transition-colors uppercase">SYNC_BANK_CORE</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 ml-0 md:ml-64 p-margin md:p-xl overflow-y-auto max-w-[1440px] mx-auto w-full">
+<!-- Header Section -->
+<header class="mb-xl flex justify-between items-end">
+<div>
+<h1 class="font-h1 text-h1 text-on-surface mb-xs">Reports Center</h1>
+<p class="font-body-main text-body-main text-on-surface-variant">Comprehensive analysis and regulatory submissions.</p>
+</div>
+<div class="flex gap-md">
+<button class="bg-surface-container border border-outline-variant px-md py-sm flex items-center gap-sm text-on-surface hover:bg-surface-bright transition-colors rounded-DEFAULT font-data-sm text-data-sm uppercase">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                        Filter
+                    </button>
+<button class="bg-surface border border-primary-container px-md py-sm flex items-center gap-sm text-primary-container hover:bg-primary-container/10 transition-colors rounded-DEFAULT font-data-sm text-data-sm uppercase">
+<span class="material-symbols-outlined text-sm">add</span>
+                        New Report
+                    </button>
+</div>
+</header>
+<!-- Featured AI Narrative Strip -->
+<section class="mb-xl bg-surface-container border border-outline-variant p-lg rounded-lg flex items-start gap-lg relative overflow-hidden group hover:border-primary-container/50 transition-colors">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary-container"></div>
+<div class="w-12 h-12 rounded-DEFAULT bg-surface flex items-center justify-center border border-outline-variant shrink-0 z-10">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="z-10">
+<div class="font-data-sm text-data-sm text-primary-container uppercase mb-xs flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+                        AI Executive Summary
+                    </div>
+<p class="font-body-main text-body-strong text-lg text-on-surface italic max-w-4xl leading-relaxed">
+                        "Q3 performance indicates a systematic outperformance in fixed-income sectors, driven by algorithmic recalibrations post-Fed announcement. Regulatory compliance tracking is at 99.8% across all active jurisdictions."
+                    </p>
+<div class="mt-md flex gap-md">
+<span class="font-data-sm text-data-sm text-on-surface-variant bg-surface px-xs py-unit border border-outline-variant rounded-DEFAULT">CONFIDENCE: HIGH</span>
+<span class="font-data-sm text-data-sm text-on-surface-variant bg-surface px-xs py-unit border border-outline-variant rounded-DEFAULT">SOURCE: Q3_AGGREGATE.CSV</span>
+</div>
+</div>
+<!-- Abstract visual element -->
+<div class="absolute right-0 top-0 w-1/3 h-full bg-gradient-to-l from-primary-container/5 to-transparent pointer-events-none"></div>
+</section>
+<!-- Main Grid -->
+<div class="flex flex-col lg:flex-row gap-lg">
+<!-- Left Sidebar Filters (In-Page) -->
+<div class="w-full lg:w-48 shrink-0 flex flex-col gap-sm font-data-sm text-data-sm uppercase">
+<div class="text-on-surface-variant mb-xs font-bold tracking-widest">Categories</div>
+<button class="text-left px-sm py-unit border-l-2 border-primary-container text-primary-container bg-primary-container/5">All Reports</button>
+<button class="text-left px-sm py-unit border-l-2 border-transparent text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">Monthly Decks</button>
+<button class="text-left px-sm py-unit border-l-2 border-transparent text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">Board Materials</button>
+<button class="text-left px-sm py-unit border-l-2 border-transparent text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">Regulatory filings</button>
+<button class="text-left px-sm py-unit border-l-2 border-transparent text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors">Audits</button>
+</div>
+<!-- Report Cards Grid -->
+<div class="flex-1 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-margin">
+<!-- Card 1: Monthly Performance -->
+<div class="bg-surface-container border border-outline-variant rounded-lg overflow-hidden group hover:border-outline transition-colors flex flex-col h-[280px]">
+<div class="h-[120px] bg-surface relative overflow-hidden border-b border-outline-variant">
+<!-- Abstract Chart Visual -->
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxwb2x5Z29uIHBvaW50cz0iMCwxMjAgMCw4MCA1MCw5MCAxMDAsNjAgMTUwLDcwIDIwMCwzMCAyNTAsNTAgMzAwLDIwIDM1MCw0MCA0MDAsMTAgNDAwLDEyMCIgZmlsbD0icmdiYSgwLCAyNTUsIDEzNywgMC4wNSkiLz48cG9seWxpbmUgcG9pbnRzPSIwLDgwIDUwLDkwIDEwMCw2MCAxNTAsNzAgMjAwLDMwIDI1MCw1MCAzMDAsMjAgMzUwLDQwIDQwMCwxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDBmZjg5IiBzdHJva2Utd2lkdGg9IjEiLz48L3N2Zz4=')] bg-cover bg-center opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute top-sm right-sm bg-surface-bright px-xs py-unit border border-outline-variant rounded-DEFAULT font-data-sm text-data-sm text-on-surface-variant flex items-center gap-unit">
+<span class="material-symbols-outlined text-[14px]">lock</span> SECURE
+                            </div>
+</div>
+<div class="p-md flex-1 flex flex-col justify-between">
+<div>
+<div class="font-data-sm text-data-sm text-primary-container mb-unit">MONTHLY_DECK</div>
+<h3 class="font-body-strong text-body-strong text-on-surface mb-xs group-hover:text-primary-container transition-colors">Q3 Alpha Generation Summary</h3>
+<p class="font-body-main text-data-sm text-on-surface-variant line-clamp-2">Comprehensive breakdown of strategic asset allocation and resulting alpha across global macro funds.</p>
+</div>
+<div class="flex justify-between items-end border-t border-outline-variant pt-sm mt-sm">
+<div class="font-data-sm text-data-sm text-on-surface-variant">12 OCT 2023</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary-container transition-colors">download</button>
+</div>
+</div>
+</div>
+<!-- Card 2: Board Deck -->
+<div class="bg-surface-container border border-outline-variant rounded-lg overflow-hidden group hover:border-outline transition-colors flex flex-col h-[280px]">
+<div class="h-[120px] bg-surface relative overflow-hidden border-b border-outline-variant flex items-center justify-center">
+<!-- Monolithic block visual -->
+<div class="w-3/4 h-1/2 border border-outline-variant flex items-center justify-between px-md">
+<div class="w-1/3 h-1/2 bg-outline-variant/30"></div>
+<div class="w-1/3 h-3/4 bg-primary-container/20 border border-primary-container/30"></div>
+<div class="w-1/4 h-full bg-outline-variant/30"></div>
+</div>
+<div class="absolute top-sm right-sm bg-surface-bright px-xs py-unit border border-outline-variant rounded-DEFAULT font-data-sm text-data-sm text-on-surface-variant">
+                                PDF
+                            </div>
+</div>
+<div class="p-md flex-1 flex flex-col justify-between">
+<div>
+<div class="font-data-sm text-data-sm text-on-surface-variant mb-unit">BOARD_MATERIALS</div>
+<h3 class="font-body-strong text-body-strong text-on-surface mb-xs group-hover:text-primary-container transition-colors">Q3 Board Directors Briefing</h3>
+<p class="font-body-main text-data-sm text-on-surface-variant line-clamp-2">Pre-read materials for the Q3 general board meeting, including risk assessments and forward guidance.</p>
+</div>
+<div class="flex justify-between items-end border-t border-outline-variant pt-sm mt-sm">
+<div class="font-data-sm text-data-sm text-on-surface-variant">10 OCT 2023</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary-container transition-colors">download</button>
+</div>
+</div>
+</div>
+<!-- Card 3: Regulatory Filing -->
+<div class="bg-surface-container border border-outline-variant rounded-lg overflow-hidden group hover:border-outline transition-colors flex flex-col h-[280px]">
+<div class="h-[120px] bg-surface relative overflow-hidden border-b border-outline-variant p-md">
+<!-- Terminal-like text preview -->
+<div class="font-terminal text-terminal text-on-surface-variant/50 text-[10px] leading-tight">
+                                &gt; INIT_COMPLIANCE_CHECK...<br/>
+                                &gt; SCANNING_JURISDICTION_US... [OK]<br/>
+                                &gt; SCANNING_JURISDICTION_EU... [OK]<br/>
+                                &gt; VALIDATING_FORM_ADV...<br/>
+                                &gt; STATUS: READY_FOR_SUBMISSION<br/>
+                                &gt; HASH: 0x8f7a9c2b...
+                            </div>
+<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-surface to-transparent"></div>
+<div class="absolute top-sm right-sm bg-surface-bright px-xs py-unit border border-outline-variant rounded-DEFAULT font-data-sm text-data-sm text-error flex items-center gap-unit">
+<span class="material-symbols-outlined text-[14px]">warning</span> URGENT
+                            </div>
+</div>
+<div class="p-md flex-1 flex flex-col justify-between">
+<div>
+<div class="font-data-sm text-data-sm text-error mb-unit">REGULATORY_FILING</div>
+<h3 class="font-body-strong text-body-strong text-on-surface mb-xs group-hover:text-primary-container transition-colors">Form ADV Part 2A Update</h3>
+<p class="font-body-main text-data-sm text-on-surface-variant line-clamp-2">Mandatory annual amendment filing required by SEC regulations. Pending final CCO sign-off.</p>
+</div>
+<div class="flex justify-between items-end border-t border-outline-variant pt-sm mt-sm">
+<div class="font-data-sm text-data-sm text-error">DUE: 15 OCT 2023</div>
+<button class="bg-surface border border-outline-variant text-on-surface hover:text-primary-container hover:border-primary-container px-sm py-unit font-data-sm text-[10px] uppercase transition-colors">Review</button>
+</div>
+</div>
+</div>
+<!-- Card 4: Risk Audit -->
+<div class="bg-surface-container border border-outline-variant rounded-lg overflow-hidden group hover:border-outline transition-colors flex flex-col h-[280px]">
+<div class="h-[120px] bg-surface relative overflow-hidden border-b border-outline-variant flex items-center justify-center">
+<div class="w-16 h-16 rounded-full border-4 border-outline-variant border-t-primary-container border-r-primary-container transform rotate-45"></div>
+<div class="absolute font-data-lg text-data-lg text-on-surface">50%</div>
+</div>
+<div class="p-md flex-1 flex flex-col justify-between">
+<div>
+<div class="font-data-sm text-data-sm text-on-surface-variant mb-unit">AUDIT</div>
+<h3 class="font-body-strong text-body-strong text-on-surface mb-xs group-hover:text-primary-container transition-colors">Internal Risk Stress Test</h3>
+<p class="font-body-main text-data-sm text-on-surface-variant line-clamp-2">Quarterly VaR and stress testing scenarios applied to the illiquid asset portfolio.</p>
+</div>
+<div class="flex justify-between items-end border-t border-outline-variant pt-sm mt-sm">
+<div class="font-data-sm text-data-sm text-on-surface-variant">01 OCT 2023</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary-container transition-colors">download</button>
+</div>
+</div>
+</div>
+<!-- Card 5: Empty State / Generate -->
+<div class="bg-surface-container border border-dashed border-outline-variant rounded-lg overflow-hidden hover:border-primary-container/50 hover:bg-surface-bright/50 transition-all flex flex-col h-[280px] items-center justify-center cursor-pointer group">
+<div class="w-12 h-12 rounded-full border border-outline-variant bg-surface flex items-center justify-center mb-md group-hover:border-primary-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary-container transition-colors">add</span>
+</div>
+<div class="font-data-sm text-data-sm text-on-surface-variant uppercase group-hover:text-primary-container transition-colors">Generate Custom Report</div>
+<div class="font-terminal text-[10px] text-on-surface-variant/50 mt-xs">VIA_TERMINAL_INTERFACE</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around h-14 bg-neutral-900 dark:bg-[#111111] border-t border-neutral-800 dark:border-[#1E1E1E]">
+<button class="text-neutral-500 dark:text-[#666666] flex flex-col items-center pt-1 active:bg-neutral-800 dark:active:bg-[#1A1A1A] scale-95 duration-75 w-full">
+<span class="material-symbols-outlined text-xl">list_alt</span>
+<span class="font-mono text-[9px] uppercase mt-1">Ledger</span>
+</button>
+<button class="text-neutral-500 dark:text-[#666666] flex flex-col items-center pt-1 active:bg-neutral-800 dark:active:bg-[#1A1A1A] scale-95 duration-75 w-full">
+<span class="material-symbols-outlined text-xl">account_balance_wallet</span>
+<span class="font-mono text-[9px] uppercase mt-1">Budget</span>
+</button>
+<button class="text-emerald-400 dark:text-[#00FF89] flex flex-col items-center pt-1 active:bg-neutral-800 dark:active:bg-[#1A1A1A] scale-95 duration-75 w-full">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-mono text-[9px] uppercase mt-1">Reports</span>
+</button>
+<button class="text-neutral-500 dark:text-[#666666] flex flex-col items-center pt-1 active:bg-neutral-800 dark:active:bg-[#1A1A1A] scale-95 duration-75 w-full">
+<span class="material-symbols-outlined text-xl">person</span>
+<span class="font-mono text-[9px] uppercase mt-1">Profile</span>
+</button>
+</nav>
+</body></html>

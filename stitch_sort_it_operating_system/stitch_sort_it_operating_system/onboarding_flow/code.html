@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Onboarding - Set Budget</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400&amp;family=Space+Mono:wght@400;700&amp;family=Syne:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#ffb3ad",
+                        "secondary-fixed": "#ffdad7",
+                        "on-tertiary-fixed": "#241a00",
+                        "on-primary-fixed-variant": "#005228",
+                        "on-tertiary": "#3d2e00",
+                        "on-error": "#690005",
+                        "tertiary-container": "#ffdb7a",
+                        "on-secondary-fixed-variant": "#930012",
+                        "on-secondary": "#680009",
+                        "primary-fixed-dim": "#00e47a",
+                        "outline-variant": "#3b4b3d",
+                        "on-background": "#dae6d8",
+                        "background": "#0c160e",
+                        "primary-fixed": "#60ff9a",
+                        "on-surface": "#dae6d8",
+                        "surface-container": "#18221a",
+                        "on-surface-variant": "#b9cbb9",
+                        "surface-dim": "#0c160e",
+                        "secondary-container": "#b60119",
+                        "on-secondary-fixed": "#410004",
+                        "primary-container": "#00ff89",
+                        "error": "#ffb4ab",
+                        "inverse-surface": "#dae6d8",
+                        "surface-tint": "#00e47a",
+                        "surface-container-low": "#141e16",
+                        "surface": "#0c160e",
+                        "on-tertiary-fixed-variant": "#584400",
+                        "inverse-on-surface": "#29332a",
+                        "surface-container-highest": "#2d372e",
+                        "error-container": "#93000a",
+                        "on-primary": "#00391a",
+                        "surface-container-high": "#222c24",
+                        "tertiary-fixed": "#ffe08e",
+                        "tertiary": "#fffaf8",
+                        "outline": "#849585",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#071009",
+                        "inverse-primary": "#006d37",
+                        "surface-variant": "#2d372e",
+                        "secondary-fixed-dim": "#ffb3ad",
+                        "on-tertiary-container": "#795f03",
+                        "primary": "#f1ffef",
+                        "on-primary-fixed": "#00210c",
+                        "surface-bright": "#323c33",
+                        "tertiary-fixed-dim": "#e5c365",
+                        "on-primary-container": "#007139",
+                        "on-secondary-container": "#ffc2bd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "gutter": "12px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "margin": "24px",
+                        "md": "16px",
+                        "xl": "40px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "data-lg": ["Space Mono"],
+                        "body-main": ["DM Sans"],
+                        "terminal": ["JetBrains Mono"],
+                        "h1": ["Syne"],
+                        "h2": ["Syne"],
+                        "body-strong": ["DM Sans"],
+                        "data-sm": ["Space Mono"]
+                    },
+                    "fontSize": {
+                        "data-lg": ["20px", { "lineHeight": "1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-main": ["14px", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "terminal": ["13px", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "h1": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "h2": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-strong": ["14px", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "500" }],
+                        "data-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #0c160e; color: #dae6d8; }
+        .range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: #2d372e;
+            outline: none;
+            border-radius: 2px;
+        }
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 0;
+            background: #00ff89;
+            cursor: pointer;
+            border: 1px solid #111111;
+        }
+        .range-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 0;
+            background: #00ff89;
+            cursor: pointer;
+            border: 1px solid #111111;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start pt-margin pb-xl px-margin antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Shell Suppressed (Onboarding/Transactional intent) -->
+<!-- Stepper Header -->
+<header class="w-full max-w-[1392px] flex justify-between items-center mb-xl border-b border-surface-variant pb-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-container text-[24px]">hexagon</span>
+<span class="font-terminal text-terminal text-on-surface uppercase tracking-widest">SETUP_SEQ_03</span>
+</div>
+<div class="flex items-center gap-lg font-data-sm text-data-sm uppercase tracking-tighter">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Profile</span>
+</div>
+<div class="w-8 h-[1px] bg-surface-variant"></div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Ledger Config</span>
+</div>
+<div class="w-8 h-[1px] bg-surface-variant"></div>
+<div class="flex items-center gap-xs text-primary-container border-b border-primary-container pb-xs">
+<span class="material-symbols-outlined text-[16px]">adjust</span>
+<span>Set Budget</span>
+</div>
+<div class="w-8 h-[1px] bg-surface-variant"></div>
+<div class="flex items-center gap-xs text-on-surface-variant opacity-50">
+<span class="material-symbols-outlined text-[16px]">radio_button_unchecked</span>
+<span>Sync Bank</span>
+</div>
+</div>
+<div class="font-data-lg text-data-lg text-primary-container text-right flex flex-col items-end">
+<span class="text-on-surface-variant font-data-sm text-data-sm uppercase tracking-widest mb-xs">Total Assigned</span>
+<span>₹12.4 Cr</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-[640px] flex-grow flex flex-col justify-center">
+<div class="mb-lg">
+<h1 class="font-h1 text-h1 text-on-surface mb-sm">Allocate Capital</h1>
+<p class="font-body-main text-body-main text-on-surface-variant">Define initial departmental budgets. Values sync instantly to the core ledger. Adjustments require secondary authorization post-setup.</p>
+</div>
+<!-- Budget Panel -->
+<div class="bg-surface-container border border-surface-variant rounded-DEFAULT p-lg flex flex-col gap-lg shadow-none">
+<!-- Dept 1 -->
+<div class="flex flex-col gap-sm">
+<div class="flex justify-between items-baseline border-b border-surface-variant pb-xs">
+<span class="font-terminal text-terminal text-on-surface uppercase tracking-wider">Engineering_Ops</span>
+<span class="font-data-sm text-data-sm text-on-surface">₹4.2 Cr</span>
+</div>
+<div class="pt-sm">
+<input class="range-slider" max="10" min="0" step="0.1" type="range" value="4.2"/>
+</div>
+</div>
+<!-- Dept 2 -->
+<div class="flex flex-col gap-sm">
+<div class="flex justify-between items-baseline border-b border-surface-variant pb-xs">
+<span class="font-terminal text-terminal text-on-surface uppercase tracking-wider">Marketing_Acquisition</span>
+<span class="font-data-sm text-data-sm text-on-surface">₹3.5 Cr</span>
+</div>
+<div class="pt-sm">
+<input class="range-slider" max="10" min="0" step="0.1" type="range" value="3.5"/>
+</div>
+</div>
+<!-- Dept 3 -->
+<div class="flex flex-col gap-sm">
+<div class="flex justify-between items-baseline border-b border-surface-variant pb-xs">
+<span class="font-terminal text-terminal text-on-surface uppercase tracking-wider">Legal_Compliance</span>
+<span class="font-data-sm text-data-sm text-on-surface">₹1.8 Cr</span>
+</div>
+<div class="pt-sm">
+<input class="range-slider" max="10" min="0" step="0.1" type="range" value="1.8"/>
+</div>
+</div>
+<!-- Dept 4 -->
+<div class="flex flex-col gap-sm">
+<div class="flex justify-between items-baseline border-b border-surface-variant pb-xs">
+<span class="font-terminal text-terminal text-on-surface uppercase tracking-wider">HR_Talent</span>
+<span class="font-data-sm text-data-sm text-on-surface">₹2.9 Cr</span>
+</div>
+<div class="pt-sm">
+<input class="range-slider" max="10" min="0" step="0.1" type="range" value="2.9"/>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="mt-xl flex justify-between items-center">
+<button class="font-terminal text-terminal text-on-surface-variant hover:text-on-surface transition-colors duration-200 border-b border-transparent hover:border-on-surface pb-xs">
+                ← BACK_TO_LEDGER
+            </button>
+<button class="bg-surface-container-highest border border-outline-variant hover:border-primary-container text-primary-container font-terminal text-terminal uppercase px-lg py-md rounded-DEFAULT flex items-center gap-sm transition-colors duration-150 group">
+                CONFIRM_ALLOCATION
+                <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform duration-150">arrow_forward</span>
+</button>
+</div>
+</main>
+</body></html>

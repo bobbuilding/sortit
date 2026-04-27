@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SORT IT - Capital Flow Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&amp;family=Space+Mono:wght@400;700&amp;family=JetBrains+Mono:wght@400&amp;family=DM+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#18221a",
+                        "on-surface-variant": "#b9cbb9",
+                        "outline-variant": "#3b4b3d",
+                        "primary-fixed-dim": "#00e47a",
+                        "on-background": "#dae6d8",
+                        "background": "#0c160e",
+                        "primary-fixed": "#60ff9a",
+                        "on-surface": "#dae6d8",
+                        "tertiary-container": "#ffdb7a",
+                        "on-secondary-fixed-variant": "#930012",
+                        "on-secondary": "#680009",
+                        "secondary": "#ffb3ad",
+                        "on-tertiary-fixed": "#241a00",
+                        "secondary-fixed": "#ffdad7",
+                        "on-primary-fixed-variant": "#005228",
+                        "on-error": "#690005",
+                        "on-tertiary": "#3d2e00",
+                        "surface": "#0c160e",
+                        "on-tertiary-fixed-variant": "#584400",
+                        "inverse-surface": "#dae6d8",
+                        "surface-tint": "#00e47a",
+                        "surface-container-low": "#141e16",
+                        "error": "#ffb4ab",
+                        "secondary-container": "#b60119",
+                        "surface-dim": "#0c160e",
+                        "on-secondary-fixed": "#410004",
+                        "primary-container": "#00ff89",
+                        "tertiary-fixed": "#ffe08e",
+                        "tertiary": "#fffaf8",
+                        "outline": "#849585",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#2d372e",
+                        "error-container": "#93000a",
+                        "on-primary": "#00391a",
+                        "surface-container-high": "#222c24",
+                        "inverse-on-surface": "#29332a",
+                        "on-secondary-container": "#ffc2bd",
+                        "tertiary-fixed-dim": "#e5c365",
+                        "on-primary-container": "#007139",
+                        "on-tertiary-container": "#795f03",
+                        "primary": "#f1ffef",
+                        "on-primary-fixed": "#00210c",
+                        "surface-bright": "#323c33",
+                        "inverse-primary": "#006d37",
+                        "surface-container-lowest": "#071009",
+                        "secondary-fixed-dim": "#ffb3ad",
+                        "surface-variant": "#2d372e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin": "24px",
+                        "xs": "4px",
+                        "xl": "40px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "gutter": "12px",
+                        "sm": "8px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "terminal": ["JetBrains Mono", "monospace"],
+                        "data-lg": ["Space Mono", "monospace"],
+                        "body-main": ["DM Sans", "sans-serif"],
+                        "data-sm": ["Space Mono", "monospace"],
+                        "body-strong": ["DM Sans", "sans-serif"],
+                        "h2": ["Syne", "sans-serif"],
+                        "h1": ["Syne", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "terminal": ["13px", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "data-lg": ["20px", { "lineHeight": "1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-main": ["14px", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "data-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "body-strong": ["14px", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "500" }],
+                        "h2": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "h1": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for terminal/dense areas if needed, though mostly monolithic */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A0A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E1E1E;
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3A3A3A;
+        }
+        
+        /* Sankey Specific Styles */
+        .sankey-path {
+            fill: none;
+            stroke: #1E1E1E;
+            transition: stroke 0.2s cubic-bezier(0.2, 1, 0.3, 1), stroke-width 0.2s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .sankey-path:hover {
+            stroke: #3A3A3A;
+        }
+        .sankey-path.anomaly {
+            stroke: #ffb4ab; /* Using error color from theme */
+            stroke-dasharray: 4 4;
+            animation: dash 20s linear infinite;
+        }
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -1000;
+            }
+        }
+        
+        .node-bar {
+            fill: #1A1A1A;
+            stroke: #2A2A2A;
+            stroke-width: 1px;
+        }
+        
+        /* Tooltip */
+        .sankey-tooltip {
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .sankey-container:hover .sankey-tooltip {
+            /* Simulating hover effect in static HTML for demo purposes */
+            opacity: 1;
+        }
+        
+        /* Utility */
+        .border-layer-1 { border-color: #1E1E1E; }
+        .border-layer-2 { border-color: #2A2A2A; }
+        .border-layer-3 { border-color: #3A3A3A; }
+        .bg-base { background-color: #0A0A0A; }
+        .bg-surface-1 { background-color: #111111; }
+        .bg-surface-2 { background-color: #1A1A1A; }
+    </style>
+</head>
+<body class="bg-base text-on-surface font-body-main antialiased h-screen w-full overflow-hidden flex flex-col">
+<!-- TopAppBar -->
+<nav class="flex justify-between items-center px-6 w-full fixed top-0 z-50 h-[52px] border-b border-[#1E1E1E] bg-[#111111]">
+<div class="flex items-center space-x-8">
+<div class="font-['Syne'] font-black text-xl tracking-widest text-[#00FF89]">SORT IT</div>
+<div class="hidden md:flex space-x-6 h-[52px] items-center">
+<a class="font-['Syne'] uppercase tracking-tighter font-bold text-sm text-gray-500 pb-4 mt-4 hover:text-[#00FF89] transition-colors" href="#">Portfolio</a>
+<a class="font-['Syne'] uppercase tracking-tighter font-bold text-sm text-gray-500 pb-4 mt-4 hover:text-[#00FF89] transition-colors" href="#">Ledger</a>
+<a class="font-['Syne'] uppercase tracking-tighter font-bold text-sm text-[#00FF89] border-b-2 border-[#00FF89] pb-4 mt-4 hover:text-[#00FF89] hover:bg-[#1A1A1A] transition-colors" href="#">Risk</a>
+<a class="font-['Syne'] uppercase tracking-tighter font-bold text-sm text-gray-500 pb-4 mt-4 hover:text-[#00FF89] transition-colors" href="#">Compute</a>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<div class="font-terminal text-terminal text-gray-500 bg-[#1A1A1A] px-2 py-1 border border-[#1E1E1E] rounded-DEFAULT flex items-center space-x-2">
+<span class="material-symbols-outlined text-[16px]">search</span>
+<span>COMMAND_K</span>
+</div>
+<button class="text-gray-500 hover:text-[#00FF89] transition-colors cursor-crosshair active:scale-95 duration-75">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-gray-500 hover:text-[#00FF89] transition-colors cursor-crosshair active:scale-95 duration-75">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="User Terminal Avatar" class="w-8 h-8 rounded-full border border-[#1E1E1E]" data-alt="close up geometric minimal avatar icon glowing green" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZZR4x3_Smwa4UG_Vtl017np_m8aXWB5FXSQqTYsKFhGjcs6H2BhbAxAA0Hx9U0o6WW-BpJV4sOHkqDqKuB5Jkbo-UAbYtgvYk1-aYO85QM_NTJ161lB5jCkJ4Z-5rKj7_R0LGvg3ssYJlZYpW3jdWzAvoEHWjIwZVDzmLnKjcww61mEgCQm9iKoJ6ClELg3oYEiGfeF-YK9tc9LtHPePfK7BS89go_-6TZX7_G2XuNBwmWkcL-fH9yW_d_AmH37vwBjZorbwgoWg"/>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col items-center pt-[52px] z-40 w-16 border-r border-[#1E1E1E] bg-[#111111]">
+<div class="flex flex-col items-center justify-center w-full py-4 border-b border-[#1E1E1E]">
+<img alt="System Node" class="w-8 h-8 rounded-DEFAULT border border-[#2A2A2A]" data-alt="minimalist server node hardware icon glowing" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5Ik5HM3yOgC9l5X1L9kQ9hKSLjkw8XiUo7h2P-XU34eStptfnpl9xJC9M3t5Y1Vc9kfuwDrZDmEMLfBWU8VkITDzcl5r2ZAegnbp9M8Ujf0OCR4FKgF-UIo5UBhXtmJ52z8MzgWd99Q6OntliNekXb_YU1g51sPwdJTM4EN1TNcsfZULPJp_pzNCScbx8NmKATl7BXf9m9aL61gN9J03lJida-oiNHfU00PlMdhIv-G7zNK8-OIn6cPqYVN_Bhwa_6E_KhrB84eA"/>
+<span class="font-terminal text-[8px] uppercase mt-1 text-[#00FF89]">NODE_01</span>
+<span class="font-terminal text-[6px] uppercase text-gray-500">Active</span>
+</div>
+<div class="flex-1 w-full flex flex-col pt-4 space-y-2">
+<button class="w-full h-12 flex flex-col items-center justify-center text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] transition-colors cursor-crosshair">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+<span class="font-['Space_Mono'] text-[8px] uppercase mt-1">Terminal</span>
+</button>
+<button class="w-full h-12 flex flex-col items-center justify-center text-[#00FF89] border-l-2 border-[#00FF89] bg-[#1A1A1A] transition-colors cursor-crosshair">
+<span class="material-symbols-outlined text-[20px]">account_tree</span>
+<span class="font-['Space_Mono'] text-[8px] uppercase mt-1">Nodes</span>
+</button>
+<button class="w-full h-12 flex flex-col items-center justify-center text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] transition-colors cursor-crosshair">
+<span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+<span class="font-['Space_Mono'] text-[8px] uppercase mt-1">Flows</span>
+</button>
+<button class="w-full h-12 flex flex-col items-center justify-center text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] transition-colors cursor-crosshair">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+<span class="font-['Space_Mono'] text-[8px] uppercase mt-1">Assets</span>
+</button>
+<button class="w-full h-12 flex flex-col items-center justify-center text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] transition-colors cursor-crosshair">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+<span class="font-['Space_Mono'] text-[8px] uppercase mt-1">Vault</span>
+</button>
+<button class="w-full h-12 flex flex-col items-center justify-center text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] transition-colors cursor-crosshair">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span class="font-['Space_Mono'] text-[8px] uppercase mt-1">Log</span>
+</button>
+</div>
+<div class="w-full border-t border-[#1E1E1E] py-4 flex flex-col space-y-2">
+<button class="w-full flex flex-col items-center justify-center text-gray-600 hover:text-[#00FF89] transition-colors cursor-crosshair">
+<span class="material-symbols-outlined text-[16px]">help</span>
+</button>
+<button class="w-full flex flex-col items-center justify-center text-gray-600 hover:text-[#00FF89] transition-colors cursor-crosshair">
+<span class="material-symbols-outlined text-[16px]">sensors</span>
+</button>
+</div>
+</aside>
+<!-- NavigationDrawer (AI Copilot) -->
+<aside class="fixed right-0 top-0 h-full pt-[52px] z-40 w-80 border-l border-[#1E1E1E] bg-[#111111] flex flex-col">
+<div class="p-4 border-b border-[#1E1E1E] flex justify-between items-center bg-[#1A1A1A]">
+<div>
+<div class="text-[#00FF89] font-bold font-terminal text-sm">AI_COPILOT</div>
+<div class="text-xs font-terminal text-gray-500">Ready</div>
+</div>
+<span class="material-symbols-outlined text-[#00FF89] text-[18px]">psychology</span>
+</div>
+<div class="flex border-b border-[#1E1E1E] bg-[#0A0A0A]">
+<button class="flex-1 py-2 flex flex-col items-center justify-center text-[#00FF89] bg-[#1A1A1A] border-b-2 border-[#00FF89] px-2 hover:border-[#3A3A3A] transition-all">
+<span class="material-symbols-outlined text-[16px]">psychology</span>
+<span class="font-['JetBrains_Mono'] text-[10px] mt-1">Intelligence</span>
+</button>
+<button class="flex-1 py-2 flex flex-col items-center justify-center text-gray-500 hover:border-[#3A3A3A] transition-all">
+<span class="material-symbols-outlined text-[16px]">temp_preferences_custom</span>
+<span class="font-['JetBrains_Mono'] text-[10px] mt-1">Context</span>
+</button>
+<button class="flex-1 py-2 flex flex-col items-center justify-center text-gray-500 hover:border-[#3A3A3A] transition-all">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span class="font-['JetBrains_Mono'] text-[10px] mt-1">Queries</span>
+</button>
+<button class="flex-1 py-2 flex flex-col items-center justify-center text-gray-500 hover:border-[#3A3A3A] transition-all">
+<span class="material-symbols-outlined text-[16px]">history</span>
+<span class="font-['JetBrains_Mono'] text-[10px] mt-1">History</span>
+</button>
+</div>
+<div class="flex-1 p-4 font-terminal text-terminal text-on-surface-variant flex flex-col space-y-4 overflow-y-auto">
+<div class="flex flex-col space-y-1">
+<span class="text-gray-500 text-[10px]">SYSTEM_PROMPT</span>
+<div class="bg-[#0A0A0A] border border-[#1E1E1E] p-2 rounded-sm typewriter-style">
+                    Analyzing capital flow metrics. Detected anomaly in Vendor routing layer. Proceeding with diagnostic trace...
+                </div>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-gray-500 text-[10px]">ANOMALY_LOG</span>
+<div class="bg-error/10 border border-error/20 p-2 rounded-sm text-error text-xs">
+<span class="material-symbols-outlined text-[12px] inline align-middle mr-1">warning</span>
+                    Route DEV_OPS -&gt; AWS_HOSTING deviation +42% against moving average.
+                </div>
+</div>
+</div>
+<div class="p-4 border-t border-[#1E1E1E] bg-[#0A0A0A]">
+<div class="flex items-center bg-[#111111] border border-[#2A2A2A] rounded-sm px-2 py-1">
+<span class="material-symbols-outlined text-gray-500 text-[14px] mr-2">terminal</span>
+<input class="bg-transparent border-none text-terminal text-xs text-[#00FF89] w-full focus:ring-0 p-0 placeholder-gray-600" placeholder="Query flow intelligence..." type="text"/>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 ml-16 mr-80 mt-[52px] bg-base p-margin flex flex-col relative h-[calc(100vh-52px)]">
+<!-- Header -->
+<header class="flex justify-between items-end mb-lg shrink-0">
+<div>
+<h1 class="font-h1 text-h1 text-on-surface tracking-tighter">CAPITAL FLOW INTELLIGENCE</h1>
+<div class="flex space-x-6 mt-2">
+<div class="flex flex-col">
+<span class="font-terminal text-[10px] text-gray-500 uppercase">Total Vol (24H)</span>
+<span class="font-data-lg text-data-lg text-primary-container">24,501.92</span>
+</div>
+<div class="flex flex-col">
+<span class="font-terminal text-[10px] text-gray-500 uppercase">Active Nodes</span>
+<span class="font-data-lg text-data-lg text-on-surface">1,024</span>
+</div>
+<div class="flex flex-col">
+<span class="font-terminal text-[10px] text-gray-500 uppercase">Anomalies</span>
+<span class="font-data-lg text-data-lg text-error">3</span>
+</div>
+</div>
+</div>
+<div class="flex space-x-2">
+<button class="bg-[#1A1A1A] border border-[#2A2A2A] px-4 py-2 font-data-sm text-[11px] uppercase tracking-wider text-on-surface hover:border-[#3A3A3A] transition-colors flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-2">filter_list</span> Filter
+                </button>
+<button class="bg-[#111111] border border-primary-container/30 px-4 py-2 font-data-sm text-[11px] uppercase tracking-wider text-primary-container hover:bg-primary-container/10 transition-colors flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-2">download</span> Export
+                </button>
+</div>
+</header>
+<!-- Sankey Container -->
+<div class="flex-1 bg-surface-1 border border-layer-1 relative sankey-container overflow-hidden flex flex-col">
+<!-- SVG Sankey Canvas -->
+<svg class="w-full h-full absolute inset-0 z-10" preserveaspectratio="none" viewbox="0 0 1000 500">
+<!-- Grid Lines (Background) -->
+<line stroke="#1E1E1E" stroke-dasharray="2 4" stroke-width="1" x1="250" x2="250" y1="0" y2="500"></line>
+<line stroke="#1E1E1E" stroke-dasharray="2 4" stroke-width="1" x1="750" x2="750" y1="0" y2="500"></line>
+<!-- Paths (Funding -> Dept) -->
+<path class="sankey-path" d="M 50,150 C 150,150 150,100 250,100" stroke-width="32"></path>
+<path class="sankey-path" d="M 50,150 C 150,150 150,250 250,250" stroke-width="16"></path>
+<path class="sankey-path" d="M 50,350 C 150,350 150,250 250,250" stroke-width="8"></path>
+<path class="sankey-path" d="M 50,350 C 150,350 150,400 250,400" stroke-width="24"></path>
+<!-- Paths (Dept -> Vendors) -->
+<path class="sankey-path" d="M 250,100 C 500,100 500,80 750,80" stroke-width="20"></path>
+<path class="sankey-path" d="M 250,100 C 500,100 500,180 750,180" stroke-width="12"></path>
+<path class="sankey-path anomaly" d="M 250,250 C 500,250 500,280 750,280" stroke-width="16"></path> <!-- Anomaly Route -->
+<path class="sankey-path" d="M 250,250 C 500,250 500,380 750,380" stroke-width="4"></path>
+<path class="sankey-path" d="M 250,400 C 500,400 500,450 750,450" stroke-width="24"></path>
+<path class="sankey-path" d="M 250,400 C 500,400 500,280 750,280" stroke-width="1px"></path>
+</svg>
+<!-- HTML Nodes Overlay -->
+<div class="absolute inset-0 z-20 flex justify-between px-[48px] pointer-events-none">
+<!-- Column 1: Funding -->
+<div class="flex flex-col justify-around h-full w-[4px] relative pointer-events-auto">
+<!-- Node -->
+<div class="absolute top-[134px] left-0 w-[4px] h-[32px] bg-primary-container rounded-sm shadow-[0_0_8px_rgba(0,255,137,0.4)] group cursor-crosshair">
+<div class="absolute right-full mr-2 top-1/2 -translate-y-1/2 flex flex-col items-end whitespace-nowrap">
+<span class="font-terminal text-[10px] text-gray-400 uppercase">Series B</span>
+<span class="font-data-sm text-[11px] text-on-surface">12,000.00</span>
+</div>
+</div>
+<!-- Node -->
+<div class="absolute top-[334px] left-0 w-[4px] h-[32px] bg-primary-container/50 rounded-sm group cursor-crosshair">
+<div class="absolute right-full mr-2 top-1/2 -translate-y-1/2 flex flex-col items-end whitespace-nowrap">
+<span class="font-terminal text-[10px] text-gray-400 uppercase">Revenue</span>
+<span class="font-data-sm text-[11px] text-on-surface">8,500.00</span>
+</div>
+</div>
+</div>
+<!-- Column 2: Department -->
+<div class="flex flex-col justify-around h-full w-[4px] relative pointer-events-auto">
+<div class="absolute top-[84px] left-0 w-[4px] h-[32px] bg-surface-variant border border-outline-variant rounded-sm group cursor-crosshair">
+<div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 flex flex-col whitespace-nowrap">
+<span class="font-terminal text-[10px] text-gray-400 uppercase">R&amp;D</span>
+<span class="font-data-sm text-[11px] text-on-surface">6,200.00</span>
+</div>
+</div>
+<div class="absolute top-[234px] left-0 w-[4px] h-[32px] bg-error border border-error rounded-sm shadow-[0_0_8px_rgba(255,180,171,0.4)] group cursor-crosshair">
+<div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 flex flex-col whitespace-nowrap">
+<span class="font-terminal text-[10px] text-error uppercase flex items-center"><span class="material-symbols-outlined text-[10px] mr-1">warning</span> DEV_OPS</span>
+<span class="font-data-sm text-[11px] text-on-surface">4,800.00</span>
+</div>
+</div>
+<div class="absolute top-[384px] left-0 w-[4px] h-[32px] bg-surface-variant border border-outline-variant rounded-sm group cursor-crosshair">
+<div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 flex flex-col whitespace-nowrap">
+<span class="font-terminal text-[10px] text-gray-400 uppercase">Marketing</span>
+<span class="font-data-sm text-[11px] text-on-surface">9,500.00</span>
+</div>
+</div>
+</div>
+<!-- Column 3: Vendors -->
+<div class="flex flex-col justify-around h-full w-[4px] relative pointer-events-auto">
+<div class="absolute top-[64px] left-0 w-[4px] h-[32px] bg-surface-variant border border-outline-variant rounded-sm group cursor-crosshair">
+<div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 flex flex-col whitespace-nowrap">
+<span class="font-terminal text-[10px] text-gray-400 uppercase">Vendor_A</span>
+<span class="font-data-sm text-[11px] text-on-surface">4,000.00</span>
+</div>
+</div>
+<div class="absolute top-[164px] left-0 w-[4px] h-[32px] bg-surface-variant border border-outline-variant rounded-sm group cursor-crosshair">
+<div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 flex flex-col whitespace-nowrap">
+<span class="font-terminal text-[10px] text-gray-400 uppercase">Vendor_B</span>
+<span class="font-data-sm text-[11px] text-on-surface">2,200.00</span>
+</div>
+</div>
+<div class="absolute top-[264px] left-0 w-[4px] h-[32px] bg-error border border-error rounded-sm group cursor-crosshair">
+<div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 flex flex-col whitespace-nowrap">
+<span class="font-terminal text-[10px] text-error uppercase">AWS_HOSTING</span>
+<span class="font-data-sm text-[11px] text-on-surface">4,000.00</span>
+</div>
+</div>
+<div class="absolute top-[364px] left-0 w-[4px] h-[32px] bg-surface-variant border border-outline-variant rounded-sm group cursor-crosshair">
+<div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 flex flex-col whitespace-nowrap">
+<span class="font-terminal text-[10px] text-gray-400 uppercase">Vendor_C</span>
+<span class="font-data-sm text-[11px] text-on-surface">800.00</span>
+</div>
+</div>
+<div class="absolute top-[434px] left-0 w-[4px] h-[32px] bg-surface-variant border border-outline-variant rounded-sm group cursor-crosshair">
+<div class="absolute left-full ml-2 top-1/2 -translate-y-1/2 flex flex-col whitespace-nowrap">
+<span class="font-terminal text-[10px] text-gray-400 uppercase">Ad_Spend</span>
+<span class="font-data-sm text-[11px] text-on-surface">9,500.00</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Intelligence Tooltip (Simulated Active State) -->
+<div class="sankey-tooltip absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#1A1A1A] border border-[#3A3A3A] p-3 shadow-2xl z-30 w-48 pointer-events-none">
+<div class="flex justify-between items-center border-b border-[#2A2A2A] pb-2 mb-2">
+<span class="font-terminal text-[10px] text-error uppercase font-bold">Flow_Anomaly</span>
+<span class="material-symbols-outlined text-[14px] text-error">monitoring</span>
+</div>
+<div class="font-data-sm text-[12px] text-on-surface mb-1">DEV_OPS -&gt; AWS</div>
+<div class="font-terminal text-[9px] text-gray-400 mb-3">Volume spiked 42% above 30d MA. Suspected over-provisioning.</div>
+<!-- Sparkline -->
+<div class="flex items-end space-x-1 h-8">
+<div class="w-full bg-[#2A2A2A] h-[20%]"></div>
+<div class="w-full bg-[#2A2A2A] h-[30%]"></div>
+<div class="w-full bg-[#2A2A2A] h-[25%]"></div>
+<div class="w-full bg-[#2A2A2A] h-[40%]"></div>
+<div class="w-full bg-[#2A2A2A] h-[35%]"></div>
+<div class="w-full bg-error h-[80%] shadow-[0_0_4px_rgba(255,180,171,0.5)]"></div>
+<div class="w-full bg-error h-[100%] shadow-[0_0_4px_rgba(255,180,171,0.5)]"></div>
+<div class="w-full bg-error h-[90%] shadow-[0_0_4px_rgba(255,180,171,0.5)]"></div>
+</div>
+</div>
+<!-- Contextual Labels (Overlay) -->
+<div class="absolute bottom-4 left-4 font-terminal text-[10px] text-gray-600 tracking-widest uppercase">Source Layer</div>
+<div class="absolute bottom-4 left-1/2 -translate-x-1/2 font-terminal text-[10px] text-gray-600 tracking-widest uppercase">Allocation Layer</div>
+<div class="absolute bottom-4 right-4 font-terminal text-[10px] text-gray-600 tracking-widest uppercase">Destination Layer</div>
+</div>
+<!-- Summary Strip -->
+<footer class="mt-xs shrink-0 flex space-x-xs h-10">
+<div class="flex-1 bg-surface-1 border border-layer-1 flex items-center justify-between px-4">
+<span class="font-terminal text-[10px] text-gray-500 uppercase">Inflow Rate</span>
+<span class="font-data-sm text-[12px] text-primary-container">+ 1,200.00 /hr</span>
+</div>
+<div class="flex-1 bg-surface-1 border border-layer-1 flex items-center justify-between px-4">
+<span class="font-terminal text-[10px] text-gray-500 uppercase">Outflow Rate</span>
+<span class="font-data-sm text-[12px] text-on-surface">- 950.00 /hr</span>
+</div>
+<div class="flex-1 bg-error/5 border border-error/20 flex items-center justify-between px-4">
+<span class="font-terminal text-[10px] text-error uppercase">Variance</span>
+<span class="font-data-sm text-[12px] text-error">Warning: Leak Detected</span>
+</div>
+</footer>
+</main>
+</body></html>

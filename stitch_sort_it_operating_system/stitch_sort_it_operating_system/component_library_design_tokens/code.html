@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SORT IT - Component Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&amp;family=Syne:wght@700;800&amp;family=DM+Sans:wght@400;500&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#dae6d8",
+                      "secondary-fixed": "#ffdad7",
+                      "on-tertiary-fixed-variant": "#584400",
+                      "surface-bright": "#323c33",
+                      "inverse-primary": "#006d37",
+                      "surface-tint": "#00e47a",
+                      "primary": "#f1ffef",
+                      "on-primary": "#00391a",
+                      "surface-variant": "#2d372e",
+                      "surface-container-highest": "#2d372e",
+                      "on-primary-fixed-variant": "#005228",
+                      "surface-container-high": "#222c24",
+                      "primary-container": "#00ff89",
+                      "secondary-container": "#b60119",
+                      "surface-container-low": "#141e16",
+                      "on-surface-variant": "#b9cbb9",
+                      "on-tertiary": "#3d2e00",
+                      "on-secondary-fixed-variant": "#930012",
+                      "surface-container-lowest": "#071009",
+                      "error-container": "#93000a",
+                      "outline-variant": "#3b4b3d",
+                      "on-secondary": "#680009",
+                      "surface-dim": "#0c160e",
+                      "secondary": "#ffb3ad",
+                      "on-tertiary-container": "#795f03",
+                      "primary-fixed": "#60ff9a",
+                      "on-secondary-container": "#ffc2bd",
+                      "on-tertiary-fixed": "#241a00",
+                      "background": "#0c160e",
+                      "tertiary": "#fffaf8",
+                      "primary-fixed-dim": "#00e47a",
+                      "surface-container": "#18221a",
+                      "on-background": "#dae6d8",
+                      "on-secondary-fixed": "#410004",
+                      "outline": "#849585",
+                      "inverse-surface": "#dae6d8",
+                      "tertiary-fixed": "#ffe08e",
+                      "error": "#ffb4ab",
+                      "tertiary-container": "#ffdb7a",
+                      "secondary-fixed-dim": "#ffb3ad",
+                      "on-primary-fixed": "#00210c",
+                      "surface": "#0c160e",
+                      "tertiary-fixed-dim": "#e5c365",
+                      "on-error": "#690005",
+                      "inverse-on-surface": "#29332a",
+                      "on-error-container": "#ffdad6",
+                      "on-primary-container": "#007139"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "12px",
+                      "xs": "4px",
+                      "xl": "40px",
+                      "md": "16px",
+                      "margin": "24px",
+                      "sm": "8px",
+                      "unit": "4px",
+                      "lg": "24px"
+              },
+              "fontFamily": {
+                      "terminal": ["JetBrains Mono"],
+                      "h1": ["Syne"],
+                      "h2": ["Syne"],
+                      "data-sm": ["Space Mono"],
+                      "body-strong": ["DM Sans"],
+                      "body-main": ["DM Sans"],
+                      "data-lg": ["Space Mono"]
+              },
+              "fontSize": {
+                      "terminal": ["13px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "h2": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "data-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "body-strong": ["14px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "500"}],
+                      "body-main": ["14px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "data-lg": ["20px", {"lineHeight": "1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+          font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { background-color: #0A0A0A; color: #dae6d8; }
+        
+        /* Utility for 1px borders specific to this design system */
+        .border-sys { border-color: #1E1E1E; }
+        .border-sys-hover { border-color: #3A3A3A; }
+        .border-sys-active { border-color: #00FF89; }
+        
+        .bg-surface-1 { background-color: #111111; }
+        .bg-surface-2 { background-color: #1A1A1A; }
+        
+        /* Custom scrollbar for dense feeling */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #0A0A0A; }
+        ::-webkit-scrollbar-thumb { background: #1E1E1E; }
+        ::-webkit-scrollbar-thumb:hover { background: #3A3A3A; }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-6 w-full fixed top-0 z-50 h-[52px] border-b border-[#1E1E1E] bg-[#111111]">
+<div class="flex items-center gap-8">
+<div class="font-['Syne'] font-black text-xl tracking-widest text-[#00FF89]">SORT IT</div>
+<nav class="hidden md:flex gap-6 h-full items-end">
+<a class="font-['Syne'] uppercase tracking-tighter font-bold text-sm text-[#00FF89] border-b-2 border-[#00FF89] pb-4 cursor-crosshair active:scale-95 duration-75" href="#">Portfolio</a>
+<a class="font-['Syne'] uppercase tracking-tighter font-bold text-sm text-gray-500 pb-4 hover:text-[#00FF89] hover:bg-[#1A1A1A] transition-colors cursor-crosshair active:scale-95 duration-75" href="#">Ledger</a>
+<a class="font-['Syne'] uppercase tracking-tighter font-bold text-sm text-gray-500 pb-4 hover:text-[#00FF89] hover:bg-[#1A1A1A] transition-colors cursor-crosshair active:scale-95 duration-75" href="#">Risk</a>
+<a class="font-['Syne'] uppercase tracking-tighter font-bold text-sm text-gray-500 pb-4 hover:text-[#00FF89] hover:bg-[#1A1A1A] transition-colors cursor-crosshair active:scale-95 duration-75" href="#">Compute</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-[#1A1A1A] border border-[#1E1E1E] px-3 py-1 rounded-sm text-gray-400 font-data-sm text-data-sm">
+<span class="material-symbols-outlined text-sm" data-icon="search">search</span>
+<span>Search...</span>
+<span class="ml-2 px-1 border border-[#3A3A3A] rounded text-[10px] text-gray-500">COMMAND_K</span>
+</div>
+<div class="flex gap-4 text-gray-500">
+<button class="hover:text-[#00FF89] transition-colors"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="hover:text-[#00FF89] transition-colors"><span class="material-symbols-outlined" data-icon="settings">settings</span></button>
+</div>
+<div class="w-8 h-8 bg-[#1A1A1A] border border-[#1E1E1E] rounded flex items-center justify-center overflow-hidden">
+<img alt="User Terminal Avatar" class="w-full h-full object-cover opacity-80 mix-blend-luminosity" data-alt="abstract monochromatic data visualization pattern with green highlights representing user terminal identity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0RjriG53cVSW8IkanXHtwZocJ_is2iNv1W57bC-xVt824QB7veWisVk6nDsNfU-93tm_coKu2ATmohDqw3B0_GUXmzW_N9nL-VpnEe1H8yJjYUSKE1peGRWRdybjIAxpE3dffl9oGz1UlabisInmTMwQLY7aGLCmDfenbOjBu1S8Gmq2csdD6m0I_wiZqWwgDpHZZzxJIhmk5-18EDNyW_N0rjMcscFMdwb8YiChxCyG6n1foa2E7xnGtw-5Uk3p3Kzf1M5S1vIc"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 pt-[52px] w-full h-full">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col items-center pt-[52px] z-40 w-16 border-r border-[#1E1E1E] bg-[#111111]">
+<div class="w-full flex flex-col items-center py-4 border-b border-[#1E1E1E] mb-2">
+<div class="w-8 h-8 bg-[#1A1A1A] border border-[#3A3A3A] rounded flex items-center justify-center text-[#00FF89] mb-1">
+<span class="material-symbols-outlined text-sm filled" data-icon="dns">dns</span>
+</div>
+<div class="font-['Space_Mono'] text-[8px] uppercase text-[#00FF89]">NODE_01</div>
+<div class="font-['Space_Mono'] text-[8px] uppercase text-gray-600">Active</div>
+</div>
+<nav class="flex flex-col w-full gap-1 flex-1 overflow-y-auto">
+<a class="w-full flex justify-center py-3 text-[#00FF89] border-l-2 border-[#00FF89] bg-[#1A1A1A]" href="#" title="Terminal">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+</a>
+<a class="w-full flex justify-center py-3 text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] border-l-2 border-transparent" href="#" title="Nodes">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+</a>
+<a class="w-full flex justify-center py-3 text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] border-l-2 border-transparent" href="#" title="Flows">
+<span class="material-symbols-outlined" data-icon="swap_horiz">swap_horiz</span>
+</a>
+<a class="w-full flex justify-center py-3 text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] border-l-2 border-transparent" href="#" title="Assets">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+</a>
+<a class="w-full flex justify-center py-3 text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] border-l-2 border-transparent" href="#" title="Vault">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+</a>
+<a class="w-full flex justify-center py-3 text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] border-l-2 border-transparent" href="#" title="Log">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</a>
+</nav>
+<div class="w-full flex flex-col gap-1 border-t border-[#1E1E1E] pt-2 pb-4">
+<a class="w-full flex justify-center py-3 text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] border-l-2 border-transparent" href="#" title="Support">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</a>
+<a class="w-full flex justify-center py-3 text-gray-600 hover:bg-[#1A1A1A] hover:text-[#00FF89] border-l-2 border-transparent" href="#" title="Status">
+<span class="material-symbols-outlined" data-icon="sensors">sensors</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-16 mr-80 overflow-y-auto p-margin">
+<div class="max-w-6xl mx-auto space-y-8">
+<header class="border-b border-[#1E1E1E] pb-4 mb-8">
+<h1 class="font-h1 text-h1 text-on-surface mb-2">COMPONENT LIBRARY</h1>
+<p class="font-body-main text-body-main text-on-surface-variant">Institutional Minimalism Design System</p>
+</header>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Section 1: Typography -->
+<section class="col-span-12 lg:col-span-6 bg-surface-1 border border-[#1E1E1E] p-md rounded-DEFAULT">
+<div class="flex items-center justify-between mb-6 border-b border-[#1E1E1E] pb-2">
+<h2 class="font-data-sm text-data-sm uppercase text-gray-500">Typography System</h2>
+<span class="font-data-sm text-data-sm text-[#00FF89]">[SEC_01]</span>
+</div>
+<div class="space-y-6">
+<div>
+<div class="font-data-sm text-[10px] text-gray-500 mb-1 flex justify-between"><span>SYNE</span> <span>H1</span></div>
+<div class="font-h1 text-[40px] leading-tight text-on-surface">HEADER PRIMARY</div>
+</div>
+<div>
+<div class="font-data-sm text-[10px] text-gray-500 mb-1 flex justify-between"><span>SYNE</span> <span>H2</span></div>
+<div class="font-h2 text-h2 text-on-surface">Header Secondary</div>
+</div>
+<div>
+<div class="font-data-sm text-[10px] text-gray-500 mb-1 flex justify-between"><span>DM SANS</span> <span>BODY STRONG</span></div>
+<div class="font-body-strong text-body-strong text-on-surface">The quick brown fox jumps over the lazy dog.</div>
+</div>
+<div>
+<div class="font-data-sm text-[10px] text-gray-500 mb-1 flex justify-between"><span>DM SANS</span> <span>BODY MAIN</span></div>
+<div class="font-body-main text-body-main text-on-surface-variant">The quick brown fox jumps over the lazy dog. Used for secondary descriptive text and longer paragraphs where readability is key.</div>
+</div>
+<div class="bg-[#0A0A0A] border border-[#1E1E1E] p-4">
+<div class="font-data-sm text-[10px] text-gray-500 mb-2 flex justify-between"><span>SPACE MONO</span> <span>FINANCIAL / DATA</span></div>
+<div class="flex justify-between items-center border-b border-[#1E1E1E] pb-2 mb-2">
+<span class="font-data-sm text-data-sm text-gray-400">Total Volume</span>
+<span class="font-data-lg text-data-lg text-on-surface">4,821,093.00</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-data-sm text-data-sm text-gray-400">Delta</span>
+<span class="font-data-sm text-data-sm text-[#00FF89]">+2.4%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Buttons & Actions -->
+<section class="col-span-12 lg:col-span-6 bg-surface-1 border border-[#1E1E1E] p-md rounded-DEFAULT">
+<div class="flex items-center justify-between mb-6 border-b border-[#1E1E1E] pb-2">
+<h2 class="font-data-sm text-data-sm uppercase text-gray-500">Buttons &amp; Actions</h2>
+<span class="font-data-sm text-data-sm text-[#00FF89]">[SEC_02]</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Primary -->
+<div class="space-y-2">
+<div class="font-data-sm text-[10px] text-gray-500">PRIMARY</div>
+<button class="w-full bg-[#1A1A1A] border border-[#00FF89] text-[#00FF89] font-data-sm text-data-sm uppercase py-2 px-4 flex items-center justify-center gap-2 hover:bg-[#00FF89]/10 transition-colors">
+<span>Execute</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Secondary -->
+<div class="space-y-2">
+<div class="font-data-sm text-[10px] text-gray-500">SECONDARY</div>
+<button class="w-full bg-[#1A1A1A] border border-[#3A3A3A] text-on-surface font-data-sm text-data-sm uppercase py-2 px-4 hover:border-[#00FF89] hover:text-[#00FF89] transition-colors">
+                                    Cancel
+                                </button>
+</div>
+<!-- Ghost -->
+<div class="space-y-2">
+<div class="font-data-sm text-[10px] text-gray-500">GHOST W/ SHORTCUT</div>
+<button class="w-full bg-transparent border border-transparent text-gray-400 font-data-sm text-data-sm uppercase py-2 px-4 hover:text-on-surface flex items-center justify-between transition-colors">
+<span>Search</span>
+<span class="px-1 border border-[#3A3A3A] rounded text-[9px]">⌘K</span>
+</button>
+</div>
+<!-- Danger -->
+<div class="space-y-2">
+<div class="font-data-sm text-[10px] text-gray-500">DANGER</div>
+<button class="w-full bg-[#1A1A1A] border border-[#93000a] text-[#ffb4ab] font-data-sm text-data-sm uppercase py-2 px-4 hover:bg-[#93000a]/20 transition-colors">
+                                    Terminate
+                                </button>
+</div>
+</div>
+<div class="mt-8 border-t border-[#1E1E1E] pt-6">
+<div class="font-data-sm text-[10px] text-gray-500 mb-2">ICON BUTTONS</div>
+<div class="flex gap-2">
+<button class="w-8 h-8 bg-[#1A1A1A] border border-[#1E1E1E] flex items-center justify-center text-gray-400 hover:text-[#00FF89] hover:border-[#3A3A3A] transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span>
+</button>
+<button class="w-8 h-8 bg-[#1A1A1A] border border-[#1E1E1E] flex items-center justify-center text-gray-400 hover:text-[#00FF89] hover:border-[#3A3A3A] transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="content_copy">content_copy</span>
+</button>
+<button class="w-8 h-8 bg-[#1A1A1A] border border-[#1E1E1E] flex items-center justify-center text-gray-400 hover:text-[#00FF89] hover:border-[#3A3A3A] transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="download">download</span>
+</button>
+<button class="w-8 h-8 bg-[#1A1A1A] border border-[#1E1E1E] flex items-center justify-center text-gray-400 hover:text-[#ffb4ab] hover:border-[#93000a] transition-colors ml-auto">
+<span class="material-symbols-outlined text-[16px]" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Section 3: Inputs & Terminal -->
+<section class="col-span-12 bg-surface-1 border border-[#1E1E1E] p-md rounded-DEFAULT">
+<div class="flex items-center justify-between mb-6 border-b border-[#1E1E1E] pb-2">
+<h2 class="font-data-sm text-data-sm uppercase text-gray-500">Inputs &amp; Terminal</h2>
+<span class="font-data-sm text-data-sm text-[#00FF89]">[SEC_03]</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Standard Forms -->
+<div class="space-y-4">
+<div>
+<label class="block font-data-sm text-[10px] text-gray-500 mb-1">NODE IDENTIFIER</label>
+<input class="w-full bg-[#0A0A0A] border border-[#1E1E1E] focus:border-[#00FF89] text-on-surface font-terminal text-terminal py-2 px-3 focus:ring-0 transition-colors" type="text" value="ND-774-ALPHA"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block font-data-sm text-[10px] text-gray-500 mb-1">PROTOCOL</label>
+<div class="relative">
+<select class="w-full bg-[#0A0A0A] border border-[#1E1E1E] focus:border-[#00FF89] text-on-surface font-terminal text-terminal py-2 pl-3 pr-8 appearance-none focus:ring-0 transition-colors">
+<option>TCP/IP</option>
+<option>UDP</option>
+<option>HTTPS</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div>
+<label class="block font-data-sm text-[10px] text-gray-500 mb-1">PORT</label>
+<input class="w-full bg-[#0A0A0A] border border-[#1E1E1E] focus:border-[#00FF89] text-on-surface font-terminal text-terminal py-2 px-3 focus:ring-0 transition-colors text-right" type="text" value="8080"/>
+</div>
+</div>
+<div>
+<label class="block font-data-sm text-[10px] text-[#ffb4ab] mb-1">AUTHORIZATION KEY (ERROR)</label>
+<input class="w-full bg-[#93000a]/10 border border-[#93000a] text-[#ffb4ab] font-terminal text-terminal py-2 px-3 focus:ring-0 transition-colors" type="text" value="INVALID_TOKEN_FORMAT"/>
+</div>
+</div>
+<!-- Terminal Input -->
+<div class="bg-[#0A0A0A] border border-[#3A3A3A] p-4 flex flex-col h-full">
+<div class="font-data-sm text-[10px] text-gray-600 mb-4 flex gap-2 border-b border-[#1E1E1E] pb-2">
+<span class="text-[#00FF89]">root@sort-it:~#</span>
+<span>sys_monitor --live</span>
+</div>
+<div class="font-terminal text-terminal text-gray-400 space-y-1 flex-1">
+<p>Loading dependencies...</p>
+<p>Establishing secure connection... [OK]</p>
+<p>Retrieving node status...</p>
+<div class="mt-4 flex items-center">
+<span class="text-[#00FF89] mr-2">&gt;</span>
+<span class="text-on-surface">query target_assets</span>
+<span class="inline-block w-2 h-4 bg-[#00FF89] ml-1"></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Badges & Status -->
+<section class="col-span-12 lg:col-span-4 bg-surface-1 border border-[#1E1E1E] p-md rounded-DEFAULT">
+<div class="flex items-center justify-between mb-6 border-b border-[#1E1E1E] pb-2">
+<h2 class="font-data-sm text-data-sm uppercase text-gray-500">Status Chips</h2>
+<span class="font-data-sm text-data-sm text-[#00FF89]">[SEC_04]</span>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center border-b border-[#1E1E1E] pb-2">
+<span class="font-data-sm text-[10px] text-gray-500">ACTIVE STATE</span>
+<div class="flex items-center gap-1.5 border border-[#00FF89] bg-[#00FF89]/10 px-2 py-0.5">
+<div class="w-1.5 h-1.5 rounded-full bg-[#00FF89]"></div>
+<span class="font-data-sm text-[10px] text-[#00FF89] uppercase">Live</span>
+</div>
+</div>
+<div class="flex justify-between items-center border-b border-[#1E1E1E] pb-2">
+<span class="font-data-sm text-[10px] text-gray-500">WARNING STATE</span>
+<div class="flex items-center gap-1.5 border border-[#ffdb7a] bg-[#ffdb7a]/10 px-2 py-0.5">
+<span class="material-symbols-outlined text-[12px] text-[#ffdb7a]" data-icon="warning">warning</span>
+<span class="font-data-sm text-[10px] text-[#ffdb7a] uppercase">Warning</span>
+</div>
+</div>
+<div class="flex justify-between items-center border-b border-[#1E1E1E] pb-2">
+<span class="font-data-sm text-[10px] text-gray-500">CRITICAL STATE</span>
+<div class="flex items-center gap-1.5 border border-[#ffb4ab] bg-[#93000a]/20 px-2 py-0.5">
+<span class="material-symbols-outlined text-[12px] text-[#ffb4ab]" data-icon="error">error</span>
+<span class="font-data-sm text-[10px] text-[#ffb4ab] uppercase">Critical</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-data-sm text-[10px] text-gray-500">NEUTRAL STATE</span>
+<div class="flex items-center gap-1.5 border border-[#3A3A3A] bg-[#1A1A1A] px-2 py-0.5">
+<span class="font-data-sm text-[10px] text-gray-400 uppercase">Processed</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 5: Specialized Modules -->
+<section class="col-span-12 lg:col-span-8 bg-surface-1 border border-[#1E1E1E] p-md rounded-DEFAULT">
+<div class="flex items-center justify-between mb-6 border-b border-[#1E1E1E] pb-2">
+<h2 class="font-data-sm text-data-sm uppercase text-gray-500">Specialized Modules</h2>
+<span class="font-data-sm text-data-sm text-[#00FF89]">[SEC_05]</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- KPI Card -->
+<div class="bg-[#0A0A0A] border border-[#1E1E1E] p-4 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-6">
+<span class="font-data-sm text-data-sm text-gray-500 uppercase">Compute Load</span>
+<span class="material-symbols-outlined text-gray-500 text-sm" data-icon="memory">memory</span>
+</div>
+<div>
+<div class="font-data-lg text-[32px] text-on-surface mb-1">84.2%</div>
+<div class="w-full bg-[#1E1E1E] h-1 mt-2">
+<div class="bg-[#00FF89] h-full" style="width: 84.2%"></div>
+</div>
+<div class="flex justify-between mt-2 font-data-sm text-[10px] text-gray-500">
+<span>THRESHOLD: 90%</span>
+<span class="text-[#00FF89]">NOMINAL</span>
+</div>
+</div>
+</div>
+<!-- AI Intelligence Alert -->
+<div class="bg-[#1A1A1A] border border-[#1E1E1E] border-l-2 border-l-[#00FF89] p-4">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-[#00FF89] text-sm" data-icon="psychology">psychology</span>
+<span class="font-data-sm text-[10px] text-[#00FF89] uppercase">Intelligence Alert</span>
+</div>
+<p class="font-terminal text-terminal text-on-surface mb-3">Unusual volume detected in Node cluster ALPHA-7. Recommendation: Shift compute resources from BETA-2 to stabilize.</p>
+<div class="flex gap-2">
+<button class="bg-transparent border border-[#3A3A3A] text-gray-300 font-data-sm text-[10px] uppercase py-1 px-3 hover:border-[#00FF89] hover:text-[#00FF89] transition-colors">Acknowledge</button>
+<button class="bg-[#111111] border border-[#00FF89] text-[#00FF89] font-data-sm text-[10px] uppercase py-1 px-3 hover:bg-[#00FF89]/10 transition-colors">Execute Shift</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- NavigationDrawer (AI Copilot) -->
+<aside class="fixed right-0 top-0 h-full pt-[52px] z-40 w-80 border-l border-[#1E1E1E] bg-[#111111] flex flex-col hidden lg:flex">
+<div class="p-4 border-b border-[#1E1E1E]">
+<div class="font-['JetBrains_Mono'] text-xs text-[#00FF89] font-bold">AI_COPILOT</div>
+<div class="font-['JetBrains_Mono'] text-[10px] text-gray-500 mt-1">Ready</div>
+</div>
+<div class="flex border-b border-[#1E1E1E]">
+<button class="flex-1 py-2 flex flex-col items-center justify-center gap-1 text-[#00FF89] bg-[#1A1A1A] border-b border-[#00FF89]">
+<span class="material-symbols-outlined text-[16px]" data-icon="psychology">psychology</span>
+<span class="font-['JetBrains_Mono'] text-[9px] uppercase">Intelligence</span>
+</button>
+<button class="flex-1 py-2 flex flex-col items-center justify-center gap-1 text-gray-500 hover:text-gray-300 transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="temp_preferences_custom">temp_preferences_custom</span>
+<span class="font-['JetBrains_Mono'] text-[9px] uppercase">Context</span>
+</button>
+<button class="flex-1 py-2 flex flex-col items-center justify-center gap-1 text-gray-500 hover:text-gray-300 transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="terminal">terminal</span>
+<span class="font-['JetBrains_Mono'] text-[9px] uppercase">Queries</span>
+</button>
+<button class="flex-1 py-2 flex flex-col items-center justify-center gap-1 text-gray-500 hover:text-gray-300 transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="history">history</span>
+<span class="font-['JetBrains_Mono'] text-[9px] uppercase">History</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-4">
+<div class="bg-[#0A0A0A] border border-[#1E1E1E] p-3">
+<div class="font-data-sm text-[10px] text-gray-500 mb-2">SYSTEM</div>
+<div class="font-terminal text-[11px] text-on-surface">How can I assist with the current ledger analysis?</div>
+</div>
+<div class="bg-[#1A1A1A] border border-[#3A3A3A] p-3 ml-4">
+<div class="font-data-sm text-[10px] text-[#00FF89] mb-2 text-right">USER</div>
+<div class="font-terminal text-[11px] text-gray-300 text-right">Summarize component library sections.</div>
+</div>
+<div class="bg-[#0A0A0A] border border-[#1E1E1E] p-3 border-l-2 border-l-[#00FF89]">
+<div class="font-data-sm text-[10px] text-gray-500 mb-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-[#00FF89]" data-icon="psychology">psychology</span>
+<span>GENERATING...</span>
+</div>
+<div class="font-terminal text-[11px] text-on-surface">
+                        Analyzing provided layout parameters...<br/>
+                        - SEC_01: Typography hierarchy defined.<br/>
+                        - SEC_02: Action states mapped.<br/>
+                        - SEC_03: Data ingress interfaces standard.<br/>
+                        - SEC_04: Telemetry states calibrated.
+                        <span class="inline-block w-1.5 h-3 bg-[#00FF89] align-middle ml-1"></span>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-[#1E1E1E] bg-[#111111]">
+<div class="relative">
+<input class="w-full bg-[#0A0A0A] border border-[#3A3A3A] text-on-surface font-terminal text-[11px] py-2 pl-3 pr-8 focus:border-[#00FF89] focus:ring-0 placeholder-gray-600" placeholder="Input query..." type="text"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#00FF89]">
+<span class="material-symbols-outlined text-[16px]" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</aside>
+</div>
+</body></html>
