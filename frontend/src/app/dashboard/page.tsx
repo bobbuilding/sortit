@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ResponsiveLine } from "@nivo/line";
 import { ResponsivePie } from "@nivo/pie";
 import { ResponsiveBar } from "@nivo/bar";
 import { Activity, ArrowUpRight, ArrowDownRight, Box, Zap, BarChart3, Shield, ChevronRight } from "lucide-react";
-import { treasuryTimeseries, assetAllocation, burnByCategory, transactions } from "@/lib/mockData";
 import { useAppStore } from "@/lib/store";
+import { API_URL } from "@/lib/api";
 
 const fmt = (n: number) =>
   n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(1)}M`
@@ -24,19 +24,46 @@ const NIVO_THEME = {
   tooltip: { container: { background: "#111827", border: "1px solid #374151", color: "#F9FAFB", fontSize: 11 } },
 };
 
-const metrics = [
-  { label: "Total Liquidity", value: "$14.2M", trend: "+2.4%", up: true, icon: <Box size={14} /> },
-  { label: "Burn Rate (30D)", value: "$124k", trend: "-5.1%", up: false, icon: <Activity size={14} /> },
-  { label: "Runway", value: "34 Months", trend: "Stable", up: true, icon: <BarChart3 size={14} /> },
-  { label: "Yield Generated", value: "$42.1k", trend: "+12.1%", up: true, icon: <Zap size={14} /> },
-];
-
 const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.07 } } };
 const item = { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } };
 
 export default function Dashboard() {
   const [period, setPeriod] = useState<"1W" | "1M" | "ALL">("1M");
   const { setAllocationModalOpen } = useAppStore();
+  
+  const [summary, setSummary] = useState<any>(null);
+  const [ledger, setLedger] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch(`${API_URL}/terminal/summary`)
+      .then(res => res.json())
+      .then(data => setSummary(data))
+      .catch(err => console.error("Summary fetch error", err));
+
+    fetch(`${API_URL}/ledger`)
+      .then(res => res.json())
+      .then(data => setLedger(data))
+      .catch(err => console.error("Ledger fetch error", err));
+  }, []);
+
+  const metrics = summary ? [
+    { label: "Total Liquidity", value: `$${(parseFloat(summary.nav_total)/1000000).toFixed(1)}M`, trend: summary.delta_24h, up: summary.delta_24h.startsWith('+'), icon: <Box size={14} /> },
+    { label: "Burn Rate (30D)", value: `$${(parseFloat(summary.burn_rate_monthly)/1000).toFixed(0)}k`, trend: "Stable", up: false, icon: <Activity size={14} /> },
+    { label: "Runway", value: `${summary.runway_months} Months`, trend: "Stable", up: true, icon: <BarChart3 size={14} /> },
+    { label: "Yield Generated", value: "$0.0k", trend: "0.0%", up: true, icon: <Zap size={14} /> },
+  ] : [
+    { label: "Total Liquidity", value: "---", trend: "-", up: true, icon: <Box size={14} /> },
+    { label: "Burn Rate (30D)", value: "---", trend: "-", up: false, icon: <Activity size={14} /> },
+    { label: "Runway", value: "---", trend: "-", up: true, icon: <BarChart3 size={14} /> },
+    { label: "Yield Generated", value: "---", trend: "-", up: true, icon: <Zap size={14} /> },
+  ];
+
+  const assetAllocation = summary ? summary.distribution.map((d: any, i: number) => ({
+    id: d.category,
+    label: d.category,
+    value: d.value,
+    color: ["#00FF89", "#00C67A", "#007A4A", "#FFB800", "#3D8B6E"][i % 5]
+  })) : [];
 
   return (
     <div className="w-full min-h-full p-6">
@@ -88,7 +115,7 @@ export default function Dashboard() {
           <div className="flex justify-between items-center mb-4">
             <div>
               <h2 className="text-[10px] uppercase tracking-widest text-zinc-500">Treasury Performance</h2>
-              <p className="text-zinc-300 text-sm font-bold mt-0.5">$14.2M AUM</p>
+              <p className="text-zinc-300 text-sm font-bold mt-0.5">{summary ? `$${(parseFloat(summary.nav_total)/1000000).toFixed(1)}M` : '---'} AUM</p>
             </div>
             <div className="flex gap-1">
               {(["1W", "1M", "ALL"] as const).map((p) => (
@@ -99,29 +126,8 @@ export default function Dashboard() {
               ))}
             </div>
           </div>
-          <div className="flex-1">
-            <ResponsiveLine
-              data={treasuryTimeseries}
-              theme={NIVO_THEME}
-              margin={{ top: 10, right: 20, bottom: 40, left: 60 }}
-              xScale={{ type: "point" }}
-              yScale={{ type: "linear", min: "auto", max: "auto" }}
-              curve="monotoneX"
-              colors={["#34D399", "#EF4444"]}
-              lineWidth={2}
-              pointSize={4}
-              pointColor={{ theme: "background" }}
-              pointBorderWidth={2}
-              pointBorderColor={{ from: "serieColor" }}
-              enableArea={true}
-              areaOpacity={0.08}
-              enableGridX={false}
-              axisBottom={{ tickSize: 0, tickPadding: 8 }}
-              axisLeft={{ tickSize: 0, tickPadding: 8, format: (v: number) => v >= 1000000 ? `$${v/1000000}M` : `$${v/1000}k` }}
-              useMesh={true}
-              enableCrosshair={true}
-              legends={[{ anchor: "bottom-right", direction: "row", itemWidth: 80, itemHeight: 12, itemTextColor: "#6B7280", symbolSize: 8, symbolShape: "circle", translateY: 40 }]}
-            />
+          <div className="flex-1 flex items-center justify-center text-zinc-600 text-xs uppercase tracking-widest border border-dashed border-zinc-800">
+            Awaiting Timeseries Aggregation Endpoint
           </div>
         </motion.div>
 
@@ -130,20 +136,26 @@ export default function Dashboard() {
           className="bg-zinc-900 border border-zinc-800 p-5 min-h-[340px] flex flex-col">
           <h2 className="text-[10px] uppercase tracking-widest text-zinc-500 mb-4">Asset Allocation</h2>
           <div className="flex-1">
-            <ResponsivePie
-              data={assetAllocation}
-              theme={NIVO_THEME}
-              margin={{ top: 10, right: 10, bottom: 90, left: 10 }}
-              innerRadius={0.65}
-              padAngle={2}
-              cornerRadius={2}
-              activeOuterRadiusOffset={6}
-              colors={["#34d399", "#38bdf8", "#a78bfa", "#fbbf24", "#f472b6"]}
-              borderWidth={0}
-              enableArcLabels={false}
-              enableArcLinkLabels={false}
-              legends={[{ anchor: "bottom", direction: "column", itemWidth: 120, itemHeight: 16, itemTextColor: "#6B7280", translateY: 80, symbolSize: 8, symbolShape: "circle" }]}
-            />
+            {assetAllocation.length > 0 ? (
+              <ResponsivePie
+                data={assetAllocation}
+                theme={NIVO_THEME}
+                margin={{ top: 10, right: 10, bottom: 90, left: 10 }}
+                innerRadius={0.65}
+                padAngle={2}
+                cornerRadius={2}
+                activeOuterRadiusOffset={6}
+                colors={{ datum: 'data.color' }}
+                borderWidth={0}
+                enableArcLabels={false}
+                enableArcLinkLabels={false}
+                legends={[{ anchor: "bottom", direction: "column", itemWidth: 120, itemHeight: 16, itemTextColor: "#6B7280", translateY: 80, symbolSize: 8, symbolShape: "circle" }]}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-zinc-600 text-xs uppercase tracking-widest border border-dashed border-zinc-800">
+                Fetching Distribution...
+              </div>
+            )}
           </div>
         </motion.div>
       </div>
@@ -154,22 +166,8 @@ export default function Dashboard() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
           className="lg:col-span-2 bg-zinc-900 border border-zinc-800 p-5 min-h-[280px] flex flex-col">
           <h2 className="text-[10px] uppercase tracking-widest text-zinc-500 mb-4">Monthly Burn by Category</h2>
-          <div className="flex-1">
-            <ResponsiveBar
-              data={burnByCategory}
-              keys={["Payroll", "Infra", "Marketing", "Ops"]}
-              indexBy="month"
-              theme={NIVO_THEME}
-              margin={{ top: 10, right: 80, bottom: 36, left: 50 }}
-              padding={0.35}
-              valueScale={{ type: "linear" }}
-              colors={["#34d399", "#38bdf8", "#a78bfa", "#fbbf24"]}
-              borderWidth={0}
-              axisBottom={{ tickSize: 0, tickPadding: 6 }}
-              axisLeft={{ tickSize: 0, tickPadding: 6, format: (v: number) => `$${v/1000}k` }}
-              enableLabel={false}
-              legends={[{ dataFrom: "keys", anchor: "bottom-right", direction: "column", itemWidth: 70, itemHeight: 16, itemTextColor: "#6B7280", translateX: 80, symbolSize: 8, symbolShape: "square" }]}
-            />
+          <div className="flex-1 flex items-center justify-center text-zinc-600 text-xs uppercase tracking-widest border border-dashed border-zinc-800">
+            Awaiting Burn Aggregation Endpoint
           </div>
         </motion.div>
 
@@ -185,11 +183,11 @@ export default function Dashboard() {
             </button>
           </div>
           <div className="space-y-2 flex-1 overflow-y-auto">
-            {transactions.slice(0, 6).map((txn) => (
+            {ledger.length > 0 ? ledger.slice(0, 6).map((txn: any) => (
               <div key={txn.id}
                 className="p-2 border border-zinc-800 hover:border-zinc-600 transition-colors cursor-pointer group">
                 <div className="flex justify-between items-center">
-                  <span className="text-[9px] text-zinc-500">{txn.date}</span>
+                  <span className="text-[9px] text-zinc-500">{new Date(txn.timestamp).toLocaleDateString()}</span>
                   <span className={`text-[10px] font-bold ${txn.amount > 0 ? "text-emerald-400" : "text-zinc-300"}`}>
                     {txn.amount > 0 ? "+" : ""}{fmt(Math.abs(txn.amount))}
                   </span>
@@ -197,11 +195,15 @@ export default function Dashboard() {
                 <div className="text-[10px] uppercase tracking-wide mt-0.5 text-zinc-300 group-hover:text-white transition-colors">
                   {txn.description}
                 </div>
-                <div className={`text-[9px] mt-0.5 ${txn.status === "SETTLED" ? "text-emerald-400/60" : "text-amber-400/60"}`}>
-                  {txn.status}
+                <div className={`text-[9px] mt-0.5 text-emerald-400/60`}>
+                  SETTLED
                 </div>
               </div>
-            ))}
+            )) : (
+              <div className="h-full flex items-center justify-center text-zinc-600 text-xs uppercase tracking-widest border border-dashed border-zinc-800">
+                No Transactions
+              </div>
+            )}
           </div>
         </motion.div>
       </div>
