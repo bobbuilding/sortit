@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-on-surface: #dae6d8;
+  --color-secondary-fixed: #ffdad7;
+  --color-surface-bright: #323c33;
+  --color-inverse-primary: #006d37;
+  --color-surface-tint: #00e47a;
+  --color-primary: #f1ffef;
+  --color-on-primary: #00391a;
+  --color-surface-variant: #2d372e;
+  --color-surface-container-highest: #2d372e;
+  --color-surface-container-high: #222c24;
+  --color-primary-container: #00ff89;
+  --color-secondary-container: #b60119;
+  --color-surface-container-low: #141e16;
+  --color-on-surface-variant: #b9cbb9;
+  --color-surface-container-lowest: #071009;
+  --color-error-container: #93000a;
+  --color-outline-variant: #3b4b3d;
+  --color-surface-dim: #0c160e;
+  --color-secondary: #ffb3ad;
+  --color-primary-fixed: #60ff9a;
+  --color-background: #0c160e;
+  --color-tertiary: #fffaf8;
+  --color-primary-fixed-dim: #00e47a;
+  --color-surface-container: #18221a;
+  --color-on-background: #dae6d8;
+  --color-outline: #849585;
+  --color-inverse-surface: #dae6d8;
+  --color-error: #ffb4ab;
+  --color-tertiary-container: #ffdb7a;
+  --color-surface: #0c160e;
+
+  /* Fonts */
+  --font-terminal: "JetBrains Mono", monospace;
+  --font-h1: "Syne", sans-serif;
+  --font-h2: "Syne", sans-serif;
+  --font-data-sm: "Space Mono", monospace;
+  --font-body-strong: "DM Sans", sans-serif;
+  --font-body-main: "DM Sans", sans-serif;
+  --font-data-lg: "Space Mono", monospace;
+
+  /* Spacing */
+  --spacing-gutter: 12px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 40px;
+  --spacing-margin: 24px;
+  --spacing-unit: 4px;
+}
+
+@layer base {
+  :root {
+    --background: #0A0A0A;
+    --foreground: #dae6d8;
+  }
+  
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply antialiased flex flex-col;
+  }
+
+  /* Utility for 1px borders specific to this design system */
+  .border-sys { border-color: #1E1E1E; }
+  .border-sys-hover { border-color: #3A3A3A; }
+  .border-sys-active { border-color: #00FF89; }
+  
+  .bg-surface-1 { background-color: #111111; }
+  .bg-surface-2 { background-color: #1A1A1A; }
+  
+  /* Custom scrollbar for dense feeling */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: #0A0A0A; }
+  ::-webkit-scrollbar-thumb { background: #1E1E1E; }
+  ::-webkit-scrollbar-thumb:hover { background: #3A3A3A; }
+}
