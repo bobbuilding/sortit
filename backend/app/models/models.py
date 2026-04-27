@@ -43,6 +43,9 @@ class Asset(Base):
     type = Column(String) # e.g., Cash, Equity, Crypto
     balance = Column(Float, default=0.0)
     currency = Column(String, default="INR")
+    yield_rate = Column(Float, default=0.0)
+    custodian = Column(String)
+    risk_level = Column(String) # LOW, MEDIUM, HIGH
     node_id = Column(Integer, ForeignKey("nodes.id"))
     
     parent_node = relationship("Node", back_populates="assets")
